@@ -1,5 +1,5 @@
 {
-    "name": "websnacks",
+    "name": "@websnacksjs/websnacks",
     "description": "Minimal dependency server-side JSX for static sites",
     "version": "0.1.0",
     "author": {
