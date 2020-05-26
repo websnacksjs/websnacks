@@ -1,0 +1,13 @@
+{
+    "name": "websnacks-example-personal-site",
+    "scripts": {
+        "build": "websnacks -r ts-node/register build",
+        "dev": "websnacks -r ts-node/register dev"
+    },
+    "dependencies": {
+        "csstips": "^1.2.0",
+        "ts-node": "^8.10.1",
+        "typestyle": "^2.1.0",
+        "websnacks": "../../"
+    }
+}
