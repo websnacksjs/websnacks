@@ -48,3 +48,26 @@ export const purgeModuleAndDepsFromCache = (modName: string): void => {
     }
     delete require.cache[modPath];
 };
+
+export type Flattenable<T> = Array<T | Flattenable<T>>;
+
+const flatDeepRec = <T>(arr: Flattenable<T>, d: number): T[] => {
+    if (d <= 0) {
+        return arr.slice() as T[];
+    }
+
+    let acc = [] as T[];
+    for (const val of arr) {
+        acc = acc.concat(Array.isArray(val) ? flatDeepRec(arr, d - 1) : val);
+    }
+    return acc;
+};
+
+/**
+ * Flatten an arbitrarily-deeply nested array into a flat array.
+ *
+ * @param arr Array to flatten.
+ *
+ * @return Flattened array.
+ */
+export const flatDeep = <T>(arr: Flattenable<T>): T[] => flatDeepRec(arr, 1);

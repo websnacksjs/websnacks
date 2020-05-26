@@ -5,6 +5,7 @@
 
 import { Component, Element, HTMLElement } from "./component";
 import { HTMLAttributes } from "./jsx";
+import { flatDeep } from "./utils";
 
 /**
  * Create an HTMLElement from a custom Component.
@@ -42,7 +43,7 @@ export function createElement(
     ...children: Element[]
 ): HTMLElement {
     // Flatten the children array so we can accept arrays as children.
-    const normalizedChildren = children.flat();
+    const normalizedChildren = flatDeep(children);
     if (type instanceof Function) {
         return type({ ...props, children: normalizedChildren });
     }
