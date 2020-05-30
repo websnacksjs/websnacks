@@ -6,3 +6,13 @@
 export { HTMLElement, Component } from "./component";
 export { UserConfig as Config } from "./config";
 export { createElement } from "./create-element";
+
+import { HTMLElement } from "./component";
+import { IntrinsicElements as JsxIntrinsics } from "./jsx";
+
+declare global {
+    namespace JSX {
+        type Element = HTMLElement;
+        type IntrinsicElements = JsxIntrinsics;
+    }
+}

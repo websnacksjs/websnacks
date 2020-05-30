@@ -3,4 +3,4 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-export * from "./dist";
+export { testSuite } from "./harness";
