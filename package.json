@@ -25,6 +25,7 @@
         "build": "tsc",
         "clean": "ts-node scripts/clean.ts",
         "prepublishOnly": "npm run clean && npm run build",
+        "pretest": "npm run build",
         "test": "ts-node --project=test/tsconfig.json test/run-tests.ts"
     },
     "devDependencies": {
