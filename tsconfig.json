@@ -1,18 +1,9 @@
 {
+    "extends": "./tsconfig-base.json",
     "compilerOptions": {
-        "sourceMap": true,
         "declaration": true,
-        "esModuleInterop": true,
-        "module": "CommonJS",
-        "moduleResolution": "node",
-        "target": "ES2019",
-        "lib": ["ES2019"],
-        "outDir": "./dist",
-        "strict": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true
+        "sourceMap": true,
+        "outDir": "./dist"
     },
     "include": ["src/**/*.ts"]
 }
