@@ -1,5 +1,7 @@
 # websnacks: Minimal Dependency Server-Side JSX for Static Sites
 
+[![Build Status](https://travis-ci.org/websnacksjs/websnacks.svg?branch=master)](https://travis-ci.org/websnacksjs/websnacks)
+
 Develop fully static websites using typesafe JSX templates on the server without the complex build system and dependency management of server-side rendered React frameworks.
 
 ## Goals
