@@ -1,6 +1,10 @@
 # websnacks: Minimal Dependency Server-Side JSX for Static Sites
 
-[![Build Status](https://travis-ci.org/websnacksjs/websnacks.svg?branch=master)](https://travis-ci.org/websnacksjs/websnacks)
+![npm (scoped)](https://img.shields.io/npm/v/@websnacksjs/websnacks?style=flat-square)
+![NPM](https://img.shields.io/npm/l/@websnacksjs/websnacks?style=flat-square)
+![Snyk Vulnerabilities for npm scoped package](https://img.shields.io/snyk/vulnerabilities/npm/@websnacksjs/websnacks?style=flat-square)
+![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/@websnacksjs/websnacks?style=flat-square)
+![Travis (.org) branch](https://img.shields.io/travis/websnacksjs/websnacks/master?style=flat-square)
 
 Develop fully static websites using typesafe JSX templates on the server without the complex build system and dependency management of server-side rendered React frameworks.
 
