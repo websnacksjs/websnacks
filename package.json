@@ -1,45 +1,51 @@
 {
-    "name": "@websnacksjs/websnacks",
-    "description": "Minimal dependency server-side JSX for static sites",
-    "version": "0.1.0",
-    "author": {
-        "name": "M. George Hansen",
-        "email": "mgeorge@technopolitica.com"
-    },
-    "license": "MPL-2.0",
-    "engines": {
-        "node": ">=12"
-    },
-    "main": "dist/index.js",
-    "types": "types.d.ts",
-    "bin": "bin/websnacks.js",
-    "files": [
-        "/bin/websnacks.js",
-        "/dist/**/*.js",
-        "/dist/**/*.d.ts",
-        "/dist/**/*.map",
-        "/src/**/*.ts",
-        "/index.d.ts"
-    ],
-    "scripts": {
-        "build": "tsc",
-        "clean": "ts-node scripts/clean.ts",
-        "prepublishOnly": "npm run clean && npm run build",
-        "pretest": "npm run build",
-        "test": "ts-node --project=test/tsconfig.json test/run-tests.ts"
-    },
-    "devDependencies": {
-        "@types/node": "~12",
-        "@types/ws": "^7.2.4",
-        "@typescript-eslint/eslint-plugin": "^2.24.0",
-        "@typescript-eslint/parser": "^2.24.0",
-        "eslint": "^6.8.0",
-        "eslint-config-prettier": "^6.11.0",
-        "ts-node": "^8.10.1",
-        "typescript": "~3.8.3"
-    },
-    "optionalDependencies": {
-        "node-watch": "^0.6.3",
-        "ws": "^7.2.5"
-    }
+  "name": "@websnacksjs/websnacks",
+  "description": "Minimal dependency server-side JSX for static sites",
+  "version": "0.1.0",
+  "author": {
+    "name": "M. George Hansen",
+    "email": "mgeorge@technopolitica.com"
+  },
+  "license": "MPL-2.0",
+  "engines": {
+    "node": ">=12"
+  },
+  "main": "dist/index.js",
+  "types": "types.d.ts",
+  "bin": "bin/websnacks.js",
+  "files": [
+    "/bin/websnacks.js",
+    "/dist/**/*.js",
+    "/dist/**/*.d.ts",
+    "/dist/**/*.map",
+    "/src/**/*.ts",
+    "/index.d.ts"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "ts-node scripts/clean.ts",
+    "prepublishOnly": "npm run clean && npm run build",
+    "pretest": "npm run build",
+    "test": "ts-node --project=test/tsconfig.json test/run-tests.ts",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "devDependencies": {
+    "@types/node": "~12",
+    "@types/ws": "^7.2.4",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "ts-node": "^8.10.1",
+    "typescript": "~3.8.3"
+  },
+  "optionalDependencies": {
+    "node-watch": "^0.6.3",
+    "ws": "^7.2.5"
+  },
+  "snyk": true,
+  "dependencies": {
+    "snyk": "^1.334.0"
+  }
 }
