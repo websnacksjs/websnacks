@@ -3,7 +3,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import { createElement } from "../../dist";
+import { Component, createElement } from "../../dist";
 import { renderPage } from "../../dist/render";
 import { testSuite } from "../lib";
 
@@ -66,5 +66,24 @@ testSuite("renderPage", ({ test, expect }) => {
         const nLights = 3;
         const html = renderPage(<html>There are {nLights} lights!</html>);
         expect(html).toEqual("<!DOCTYPE html><html>There are 3 lights!</html>");
+    });
+
+    test("renders spliced arrays", () => {
+        const Light: Component<{ lightN: number }> = ({ lightN }) => (
+            <div>{lightN}</div>
+        );
+        const lights = [1, 2, 3];
+        const html = renderPage(
+            <html>
+                There are{" "}
+                {lights.map((lightN) => (
+                    <Light lightN={lightN} />
+                ))}{" "}
+                lights!
+            </html>
+        );
+        expect(html).toEqual(
+            "<!DOCTYPE html><html>There are <div>1</div><div>2</div><div>3</div> lights!</html>"
+        );
     });
 });
