@@ -6,7 +6,7 @@
 import { areEqual, displayValue, matches } from "./utils";
 
 class ExpectError extends Error {
-    public constructor(reason: string, expected: any, actual: any) {
+    public constructor(reason: string, expected: unknown, actual: unknown) {
         super(
             `${reason}\n` +
                 `\texpected: ${displayValue(expected)}\n` +
@@ -45,7 +45,7 @@ export class Expect<T> {
      *
      * @throws ExpectError If the actual value does not equal the expected value.
      */
-    public toEqual(expected: T) {
+    public toEqual(expected: T): void {
         if (!areEqual(this.value, expected)) {
             throw new ExpectError(
                 `value does not equal expected`,
@@ -201,12 +201,12 @@ export function expect<T>(fn: () => T): FunctionExpect<T>;
  *
  * @param value Value to place expectations upon.
  */
-export function expect(value: any): Expect<any> {
+export function expect(value: unknown): Expect<unknown> {
     if (typeof value === "string") {
         return new StringExpect(value);
     }
     if (typeof value === "function") {
-        return new FunctionExpect(value);
+        return new FunctionExpect(value as () => unknown);
     }
     return new Expect(value);
 }

@@ -30,7 +30,9 @@ export type Element = HTMLElement | string | boolean | undefined | null;
 /**
  * Custom HTMLElement factory that can be parameterized by props.
  */
-export interface Component<P extends object = {}> {
+export interface Component<
+    P extends Record<string, unknown> = Record<string, never>
+> {
     (
         props: P & {
             children?: Element[];

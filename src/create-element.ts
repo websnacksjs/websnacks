@@ -16,7 +16,7 @@ import { HTMLAttributes } from "./jsx";
  *
  * @return Fully-realized HTMLElement, ready for rendering.
  */
-export function createElement<P extends object>(
+export function createElement<P extends Record<string, unknown>>(
     comp: Component<P>,
     props: P,
     ...children: Element[]
@@ -37,8 +37,8 @@ export function createElement(
     ...children: Element[]
 ): HTMLElement;
 export function createElement(
-    type: string | Component<any>,
-    props: (HTMLAttributes & Record<string, any>) | null,
+    type: string | Component<Record<string, unknown>>,
+    props: HTMLAttributes | Record<string, unknown> | null,
     ...children: Element[]
 ): HTMLElement {
     // Flatten the children array so we can accept arrays as children.
@@ -50,5 +50,19 @@ export function createElement(
     if (type !== type.toLowerCase()) {
         console.warn(`constructed HTML5 tag with non-lowercase name ${type}`);
     }
-    return { tag: type, attributes: props || {}, children: normalizedChildren };
+    const attrs: Record<string, string | number | boolean> = {};
+    for (const [key, value] of Object.entries(props || {})) {
+        if (
+            typeof value !== "string" &&
+            typeof value !== "number" &&
+            typeof value !== "boolean"
+        ) {
+            console.warn(
+                `non-primitive attribute ${key} = ${JSON.stringify(value)}`
+            );
+            continue;
+        }
+        attrs[key] = value;
+    }
+    return { tag: type, attributes: attrs, children: normalizedChildren };
 }

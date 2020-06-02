@@ -31,7 +31,10 @@ const areArraysEqual = <T>(a: T[], b: T[]): boolean => {
     return true;
 };
 
-const areObjectsEqual = <T extends object>(a: T, b: T): boolean => {
+const areObjectsEqual = <T extends Record<string, unknown>>(
+    a: T,
+    b: T
+): boolean => {
     const aKeys = Object.keys(a) as Array<keyof T>;
     const bKeys = Object.keys(b) as Array<keyof T>;
     if (aKeys.length !== bKeys.length) {
@@ -62,7 +65,10 @@ export const areEqual = <T>(a: T, b: T): boolean => {
         return a.source === b.source;
     }
     if (typeof a === "object" && typeof b === "object") {
-        return areObjectsEqual(a as any, b);
+        return areObjectsEqual(
+            a as Record<string, unknown>,
+            b as Record<string, unknown>
+        );
     }
     return a === b;
 };
@@ -95,7 +101,7 @@ export const matches = (value: string, pattern: string | RegExp): boolean => {
  *
  * @return Rendered value to display.
  */
-export const displayValue = (value: any): string => {
+export const displayValue = (value: unknown): string => {
     if (value === undefined) {
         return "undefined";
     }

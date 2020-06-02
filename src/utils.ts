@@ -35,7 +35,7 @@ export const walkDir = async function* (
  * @param modName Name of the module to purge from the require cache.
  */
 export const purgeModuleAndDepsFromCache = (modName: string): void => {
-    var modPath = require.resolve(modName);
+    const modPath = require.resolve(modName);
     if (modPath == null) {
         return;
     }

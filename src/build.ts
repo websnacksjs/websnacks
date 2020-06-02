@@ -23,6 +23,7 @@ const renderPagesToHtml = async ({
 
         // Ensure that we don't cache page modules when running in dev server.
         purgeModuleAndDepsFromCache(srcPath);
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
         const pageSrc = require(srcPath);
         if (!("page" in pageSrc)) {
             throw new Error(

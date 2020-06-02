@@ -36,11 +36,12 @@ const parseArgs = (
         const opt = args.shift();
         switch (opt) {
             case "-h":
-            case "--help":
+            case "--help": {
                 options.showHelp = true;
                 break;
+            }
             case "-r":
-            case "--require":
+            case "--require": {
                 const moduleName = args.shift();
                 if (moduleName == null) {
                     throw new UsageError(
@@ -50,6 +51,7 @@ const parseArgs = (
                 }
                 options.require.push(moduleName);
                 break;
+            }
             default:
                 throw new UsageError(`unknown option ${opt}`, globalHelpText);
         }
