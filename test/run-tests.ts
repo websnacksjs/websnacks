@@ -16,5 +16,9 @@ const files = fs.readdirSync(TEST_SUITES_DIR);
 shuffle(files);
 for (const file of files) {
     const fullPath = path.join(TEST_SUITES_DIR, file);
-    fork(path.relative(process.cwd(), fullPath));
+    fork(path.relative(process.cwd(), fullPath)).on("exit", (code) => {
+        if (code !== 0) {
+            process.exitCode = 1;
+        }
+    });
 }

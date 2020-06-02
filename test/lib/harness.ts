@@ -114,7 +114,7 @@ export const testSuite = (
             `[TEST] suite "${suiteName}": ${passed} of ${tests.length} succeeded\n\n`
         );
         if (passed < tests.length) {
-            process.exit(1);
+            process.exitCode = 1;
         }
     })();
 };
