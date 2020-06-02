@@ -8,7 +8,7 @@
     },
     "license": "MPL-2.0",
     "engines": {
-        "node": ">=12"
+        "node": ">=10"
     },
     "main": "dist/index.js",
     "types": "types.d.ts",
@@ -29,7 +29,7 @@
         "test": "ts-node --project=test/tsconfig.json test/run-tests.ts"
     },
     "devDependencies": {
-        "@types/node": "~12",
+        "@types/node": "~10",
         "@types/ws": "^7.2.4",
         "@typescript-eslint/eslint-plugin": "^3.0.2",
         "@typescript-eslint/parser": "^3.0.2",
