@@ -104,7 +104,7 @@ export const testSuite = (
             if (testResult.result === "fail") {
                 console.error(
                     `[TEST FAILURE] "${suiteName}": "${testResult.testName}": ` +
-                        `${testResult.error.message}\n`
+                        `${testResult.error.stack}\n`
                 );
                 continue;
             }
