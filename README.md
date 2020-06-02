@@ -1,10 +1,20 @@
 # websnacks: Minimal Dependency Server-Side JSX for Static Sites
 
-![npm (scoped)](https://img.shields.io/npm/v/@websnacksjs/websnacks?style=flat-square)
-![NPM](https://img.shields.io/npm/l/@websnacksjs/websnacks?style=flat-square)
-![Snyk Vulnerabilities for npm scoped package](https://img.shields.io/snyk/vulnerabilities/npm/@websnacksjs/websnacks?style=flat-square)
-![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/@websnacksjs/websnacks?style=flat-square)
-![Travis (.org) branch](https://img.shields.io/travis/websnacksjs/websnacks/master?style=flat-square)
+<div>
+
+[![NPM release](https://img.shields.io/npm/v/@websnacksjs/websnacks)](https://www.npmjs.com/package/@websnacksjs/websnacks "NPM release")
+[![NPM](https://img.shields.io/npm/l/@websnacksjs/websnacks)](https://www.mozilla.org/en-US/MPL/2.0/FAQ/ "License info")
+[![Build status](https://img.shields.io/travis/websnacksjs/websnacks?style=flat-square)](https://travis-ci.org/websnacksjs/websnacks "Build status for master branch")
+
+</div>
+
+<div>
+
+[![Dependency status](https://img.shields.io/david/websnacksjs/websnacks?style=flat-square)](https://david-dm.org/websnacksjs/websnacks "Dependency status")
+[![Optional dependency status](https://img.shields.io/david/optional/websnacksjs/websnacks?style=flat-square)](https://david-dm.org/websnacksjs/websnacks?type=optional "Optional dependency status")
+[![Dev dependency status](https://img.shields.io/david/dev/websnacksjs/websnacks?style=flat-square)](https://david-dm.org/websnacksjs/websnacks?type=dev "Dev dependency status")
+
+</div>
 
 Develop fully static websites using typesafe JSX templates on the server without the complex build system and dependency management of server-side rendered React frameworks.
 
