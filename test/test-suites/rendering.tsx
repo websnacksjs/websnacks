@@ -61,4 +61,10 @@ testSuite("renderPage", ({ test, expect }) => {
             "<!DOCTYPE html><html>There are three lights!</html>"
         );
     });
+
+    test("renders spliced number nodes", () => {
+        const nLights = 3;
+        const html = renderPage(<html>There are {nLights} lights!</html>);
+        expect(html).toEqual("<!DOCTYPE html><html>There are 3 lights!</html>");
+    });
 });

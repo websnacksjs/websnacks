@@ -22,6 +22,9 @@ const renderElement = (elem: Element): string => {
     if (elem == null || typeof elem === "boolean") {
         return "";
     }
+    if (typeof elem === "number") {
+        return elem.toString();
+    }
     if (typeof elem === "string") {
         return escapeHtml(elem);
     }

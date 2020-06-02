@@ -25,7 +25,13 @@ export interface HTMLElement {
 /**
  * All valid types of elements that can be rendered to HTML.
  */
-export type Element = HTMLElement | string | boolean | undefined | null;
+export type Element =
+    | HTMLElement
+    | string
+    | number
+    | boolean
+    | undefined
+    | null;
 
 /**
  * Custom HTMLElement factory that can be parameterized by props.
