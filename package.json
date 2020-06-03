@@ -27,7 +27,6 @@
         "prepublishOnly": "npm run reset && npm test",
         "pretest": "npm run build",
         "preversion": "npm run reset && npm test",
-        "publish": "npm publish",
         "release": "npm version",
         "reset": "npm run clean && npm ci",
         "test": "ts-node --project=test/tsconfig.json test/run-tests.ts"
