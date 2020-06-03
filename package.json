@@ -1,7 +1,7 @@
 {
     "name": "@websnacksjs/websnacks",
     "description": "Minimal dependency server-side JSX for static sites",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "author": {
         "name": "M. George Hansen",
         "email": "mgeorge@technopolitica.com"
