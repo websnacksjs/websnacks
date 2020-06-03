@@ -28,6 +28,9 @@ const renderElement = (elem: Element): string => {
     if (typeof elem === "string") {
         return escapeHtml(elem);
     }
+    if (Array.isArray(elem)) {
+        return elem.map((e) => renderElement(e)).join("");
+    }
 
     let output = "";
     output += startTag(elem);
