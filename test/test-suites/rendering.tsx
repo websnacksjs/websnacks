@@ -3,7 +3,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import { Component, createElement } from "../../dist";
+import { Component, createElement, Fragment } from "../../dist";
 import { renderPage } from "../../dist/render";
 import { testSuite } from "../lib";
 
@@ -101,6 +101,20 @@ testSuite("renderPage", ({ test, expect }) => {
         );
         expect(html).toEqual(
             "<!DOCTYPE html><html>There are <div>3 lights</div>!</html>"
+        );
+    });
+
+    test("renders fragment children only", () => {
+        const html = renderPage(
+            <html>
+                <Fragment>
+                    <div>test of</div>
+                    <div>fragments</div>
+                </Fragment>
+            </html>
+        );
+        expect(html).toEqual(
+            "<!DOCTYPE html><html><div>test of</div><div>fragments</div></html>"
         );
     });
 });

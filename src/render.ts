@@ -42,6 +42,10 @@ const renderElement = (elem: Element): string => {
 };
 
 const startTag = (elem: HTMLElement): string => {
+    if (elem.tag === "#fragment") {
+        return "";
+    }
+
     let output = `<${escapeHtml(elem.tag)}`;
 
     for (const [attrName, attrValue] of Object.entries(elem.attributes)) {
@@ -68,7 +72,12 @@ const startTag = (elem: HTMLElement): string => {
     return output;
 };
 
-const endTag = (elem: HTMLElement): string => `</${escapeHtml(elem.tag)}>`;
+const endTag = (elem: HTMLElement): string => {
+    if (elem.tag === "#fragment") {
+        return "";
+    }
+    return `</${escapeHtml(elem.tag)}>`;
+};
 
 /**
  * Render a complete HTML page from an HTMLElement. Note that the root element
@@ -78,7 +87,17 @@ const endTag = (elem: HTMLElement): string => `</${escapeHtml(elem.tag)}>`;
  *
  * @return Fully rendered HTML document as a string.
  */
-export const renderPage = (rootElem: HTMLElement): string => {
+export const renderPage = (rootElem: Element): string => {
+    if (rootElem == undefined) {
+        throw new Error(`root page element cannot be null`);
+    }
+    if (typeof rootElem !== "object" || !("tag" in rootElem)) {
+        throw new Error(
+            `root page element must be a valid HTMLElement, got ${JSON.stringify(
+                rootElem
+            )}`
+        );
+    }
     if (rootElem.tag.toLowerCase() !== "html") {
         throw new Error(
             `attempted to render page with non-HTML root element ${rootElem.tag}`
