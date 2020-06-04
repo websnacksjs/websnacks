@@ -17,7 +17,7 @@ import { flatDeep } from "./utils";
  *
  * @return Fully-realized HTMLElement, ready for rendering.
  */
-export function createElement<P extends Record<string, unknown>>(
+export function createElement<P extends object>(
     comp: Component<P>,
     props: P,
     ...children: Element[]
@@ -38,8 +38,8 @@ export function createElement(
     ...children: Element[]
 ): HTMLElement;
 export function createElement(
-    type: string | Component<Record<string, unknown>>,
-    props: HTMLAttributes | Record<string, unknown> | null,
+    type: string | Component<any>,
+    props: object | null,
     ...children: Element[]
 ): HTMLElement {
     // Flatten the children array so we can accept arrays as children.

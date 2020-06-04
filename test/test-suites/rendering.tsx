@@ -86,4 +86,21 @@ testSuite("renderPage", ({ test, expect }) => {
             "<!DOCTYPE html><html>There are <div>1</div><div>2</div><div>3</div> lights!</html>"
         );
     });
+
+    test("renders components w/ custom properties", () => {
+        interface LightProps {
+            nLights: number;
+        }
+        const Light: Component<LightProps> = ({ nLights }) => (
+            <div>{nLights} lights</div>
+        );
+        const html = renderPage(
+            <html>
+                There are <Light nLights={3} />!
+            </html>
+        );
+        expect(html).toEqual(
+            "<!DOCTYPE html><html>There are <div>3 lights</div>!</html>"
+        );
+    });
 });
