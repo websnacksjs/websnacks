@@ -38,6 +38,7 @@ export function createElement(
     ...children: Element[]
 ): HTMLElement;
 export function createElement(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type: string | Component<any>,
     props: object | null,
     ...children: Element[]
