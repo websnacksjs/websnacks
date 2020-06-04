@@ -3,7 +3,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-export { HTMLElement, Component } from "./component";
+export { HTMLElement, Component, Fragment } from "./component";
 export { UserConfig as Config } from "./config";
 export { createElement } from "./create-element";
 export * from "./jsx";

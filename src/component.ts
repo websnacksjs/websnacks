@@ -44,3 +44,9 @@ export interface Component<P extends object = {}> {
         }
     ): HTMLElement;
 }
+
+export const Fragment: Component<{}> = ({ children }) => ({
+    tag: "#fragment",
+    attributes: {},
+    children: children || [],
+});
