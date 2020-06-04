@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.3](https://github.com/websnacksjs/websnacks/releases/tag/v0.1.3) (2020-06-04)
+
+### Features
+
+-   provide Fragment component ([#9](https://github.com/websnacksjs/websnacks/issues/9), [f1aca35](https://github.com/websnacksjs/websnacks/commit/f1aca350ed7e63e277fae7f9cc01039a29442bcb))
+
 ## [0.1.2](https://github.com/websnacksjs/websnacks/releases/tag/v0.1.2) (2020-06-03)
 
 ### Bugfixes
