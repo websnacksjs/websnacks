@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.2](https://github.com/websnacksjs/websnacks/releases/tag/v0.1.2) (2020-06-03)
+
+### Bugfixes
+
+-   type signature of Component too narrow ([7fd8fe9](https://github.com/websnacksjs/websnacks/commit/7fd8fe9be855c5eb02f0d3b291fc6403a4c636a2))
+
 ## [0.1.1](https://github.com/websnacksjs/websnacks/releases/tag/v0.1.1) (2020-06-03)
 
 ### Features
