@@ -9,7 +9,7 @@ import * as path from "path";
 
 import { shuffle } from "./lib/utils";
 
-const TEST_SUITES_DIR = path.join(__dirname, "test-suites");
+const TEST_SUITES_DIR = path.join(__dirname, "e2e");
 const files = fs.readdirSync(TEST_SUITES_DIR);
 // Shuffle test suites to detect ordering dependencies between them.
 shuffle(files);
