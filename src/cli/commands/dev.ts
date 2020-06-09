@@ -182,8 +182,8 @@ const watchFolders = async (
     // Try to load node-watch, falling back to fs watch if node-watch isn't
     // available.
     try {
-        const { default: watch } = await import("node-watch");
-        watch(folders, { recursive: true }, listener);
+        const nodeWatch = await import("node-watch");
+        nodeWatch.default(folders, { recursive: true }, listener);
         return;
     } catch (error) {
         if (error.code !== "MODULE_NOT_FOUND") {

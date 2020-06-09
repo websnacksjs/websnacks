@@ -29,7 +29,9 @@
         "preversion": "npm run reset && npm test",
         "release": "npm version",
         "reset": "npm run clean && npm ci",
-        "test": "ts-node --project=test/tsconfig.json test/run-tests.ts"
+        "test": "npm run test:unit && npm run test:e2e",
+        "test:unit": "cd test && ts-node --script-mode ./run-tests.ts",
+        "test:e2e": "cd test && ts-node --script-mode ./run-e2e.ts"
     },
     "devDependencies": {
         "@types/node": "~10",
