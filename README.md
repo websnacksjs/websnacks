@@ -2,8 +2,8 @@
 
 <div>
 
-[![NPM release](https://img.shields.io/npm/v/@websnacksjs/websnacks)](https://www.npmjs.com/package/@websnacksjs/websnacks "NPM release")
-[![NPM](https://img.shields.io/npm/l/@websnacksjs/websnacks)](https://www.mozilla.org/en-US/MPL/2.0/FAQ/ "License info")
+[![NPM release](https://img.shields.io/npm/v/@websnacksjs/websnacks?style=flat-square)](https://www.npmjs.com/package/@websnacksjs/websnacks "NPM release")
+[![NPM](https://img.shields.io/npm/l/@websnacksjs/websnacks?style=flat-square)](https://www.mozilla.org/en-US/MPL/2.0/FAQ/ "License info")
 [![Build status](https://img.shields.io/travis/com/websnacksjs/websnacks/master?style=flat-square)](https://travis-ci.com/websnacksjs/websnacks "Build status for master branch")
 
 </div>
