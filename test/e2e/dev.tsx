@@ -67,11 +67,10 @@ testSuite("dev command", ({ test, expect }) => {
                 [WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "dev"],
                 {
                     cwd: tempDirPath,
-                    timeoutMs: 10_000,
                 }
             );
             // FIXME: This test is a bit brittle due to relying on timeouts.
-            await wait(5_000);
+            await wait(10_000);
             cmd.process.kill();
             const stdout = await cmd.complete;
             expect(stdout).toStartWith("Listening at");
@@ -120,11 +119,10 @@ testSuite("dev command", ({ test, expect }) => {
                 [WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "dev"],
                 {
                     cwd: tempDirPath,
-                    timeoutMs: 10_000,
                 }
             );
             // FIXME: This test is a bit brittle due to relying on timeouts.
-            await wait(5_000);
+            await wait(10_000);
             cmd.process.kill();
             const stdout = await cmd.complete;
             expect(stdout).toStartWith("Listening at");

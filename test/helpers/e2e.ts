@@ -94,7 +94,7 @@ export interface CliOptions {
 }
 
 const DEFAULT_CLI_OPTIONS = {
-    timeoutMs: 5_000,
+    timeoutMs: 15_000,
 };
 
 /**
