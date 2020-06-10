@@ -58,13 +58,31 @@ const noop = () => {};
  * @return Fully-realized configuration.
  */
 export const loadConfig = async (rootDir: string): Promise<Config> => {
-    const configPath = require.resolve(path.resolve(rootDir, "websnacks"));
-    purgeModuleAndDepsFromCache(configPath);
-    // TODO: validate user config.
-    const userConfig = await import(configPath);
+    let configPath;
+    let userConfig: UserConfig = {};
+    // Attempt to load a websnacks.ts/js file in rootDir.
+    try {
+        configPath = require.resolve(path.resolve(rootDir, "websnacks"));
+        purgeModuleAndDepsFromCache(configPath);
+        // TODO: validate user config.
+        userConfig = await import(configPath);
+    } catch (error) {
+        // Use default config;
+    }
     const outDir = path.join(rootDir, "public");
     const pagesDir = path.join(rootDir, "pages");
     const staticAssetsDir = path.join(rootDir, "static");
+
+    const watch = [pagesDir, staticAssetsDir];
+    if (configPath != null) {
+        watch.push(path.relative(rootDir, configPath));
+    }
+    if (userConfig.watch != null) {
+        for (const userWatch of userConfig.watch) {
+            watch.push(path.relative(rootDir, userWatch));
+        }
+    }
+
     return {
         paths: {
             rootDir,
@@ -76,11 +94,6 @@ export const loadConfig = async (rootDir: string): Promise<Config> => {
             afterSiteRender: noop,
             ...userConfig.hooks,
         },
-        watch: [
-            ...userConfig.watch.map((p: string) => path.relative(rootDir, p)),
-            path.relative(rootDir, configPath),
-            pagesDir,
-            staticAssetsDir,
-        ],
+        watch,
     };
 };

@@ -5,20 +5,21 @@
 
 import { existsSync, promises as fs, watch } from "fs";
 import * as http from "http";
+import * as net from "net";
 import * as path from "path";
 
 import { renderSite } from "../../build";
 import { Config, loadConfig } from "../../config";
 import { Command, UsageError } from "../types";
 
-const SERVER_PORT = 8080;
+const DEFAULT_SERVER_PORT = 8080;
 
-const injectLiveReloadScript = (htmlContents: string): string =>
+const injectLiveReloadScript = (htmlContents: string, port: number): string =>
     htmlContents.replace(
         "</html>",
         `
         <script>
-            const ws = new WebSocket("ws://127.0.0.1:${SERVER_PORT}");
+            const ws = new WebSocket("ws://127.0.0.1:${port}");
             ws.onmessage = function() {
                 console.log('dev server requested reload, reloading...');
                 location.reload();
@@ -118,8 +119,21 @@ const guessMimeType = (ext: string): string => {
     return mimeType;
 };
 
-const serve = (publicDir: string): http.Server => {
-    const server = http.createServer(async (req, res) => {
+const portFromServer = (server: Pick<net.Server, "address">): number => {
+    const addrInfo = server.address();
+    if (addrInfo == null) {
+        throw new Error(`server address is null (this should never happen!)`);
+    }
+    if (typeof addrInfo === "string") {
+        throw new Error(
+            `server address is a string (this should never happen!)`
+        );
+    }
+    return addrInfo.port;
+};
+
+const startHttpServer = async (publicDir: string): Promise<http.Server> => {
+    const httpServer = http.createServer(async (req, res) => {
         if (req.url == null) {
             res.writeHead(404);
             res.end();
@@ -144,18 +158,36 @@ const serve = (publicDir: string): http.Server => {
         }
         const mimeType = guessMimeType(reqExt);
         if (mimeType === "text/html") {
-            contents = injectLiveReloadScript(contents.toString("utf8"));
+            const port = portFromServer(req.socket);
+            contents = injectLiveReloadScript(contents.toString("utf8"), port);
         }
         res.writeHead(200, {
             "Content-Type": mimeType,
         });
         res.end(contents);
     });
-    return server;
+    const listen = async (port?: number): Promise<string> =>
+        new Promise((resolve, reject) => {
+            httpServer
+                .once("error", (error) => reject(error))
+                .once("listening", () => resolve())
+                .listen(port);
+        });
+    try {
+        await listen(DEFAULT_SERVER_PORT);
+    } catch (error) {
+        if (error.code !== "EADDRINUSE") {
+            throw error;
+        }
+        await listen();
+    }
+    const port = portFromServer(httpServer);
+    console.log(`Listening at http://127.0.0.1:${port}`);
+    return httpServer;
 };
 
 const startWebSocketServer = async (
-    server: http.Server
+    httpServer: http.Server
 ): Promise<import("ws").Server | undefined> => {
     // Attempt to load the ws module, aborting if it isn't available.
     let ws;
@@ -168,7 +200,7 @@ const startWebSocketServer = async (
         console.warn(`'ws' module not found, live-reloading will be disabled`);
         return;
     }
-    const wsServer = new ws.Server({ server });
+    const wsServer = new ws.Server({ server: httpServer });
     wsServer.on("connection", () => {
         console.log("connected to dev site");
     });
@@ -244,15 +276,12 @@ const devCommand: Command = {
         };
         const config = await rebuild();
         const { outDir } = config.paths;
-        const httpServer = serve(outDir);
+        const httpServer = await startHttpServer(outDir);
         const wsServer = await startWebSocketServer(httpServer);
-        httpServer.listen(SERVER_PORT, () => {
-            console.log(`Listening at http://127.0.0.1:${SERVER_PORT}`);
-        });
         const watchedFolders = config.watch.filter((filePath) =>
             existsSync(filePath)
         );
-        watchFolders(watchedFolders, async (event, filePath) => {
+        await watchFolders(watchedFolders, async (event, filePath) => {
             console.log(`${filePath}:${event} triggering rebuild...`);
             await rebuild();
             if (wsServer != null) {

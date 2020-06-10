@@ -6,13 +6,11 @@
 import { promises as fs } from "fs";
 import * as path from "path";
 
-import {
-    runCommand, wait, WEBSNACKS_BIN_PATH, WEBSNACKS_REPO_ROOT, withTempDir
-} from "../helpers/e2e";
+import { runCommand, WEBSNACKS_BIN_PATH, WEBSNACKS_REPO_ROOT, withTempDir } from "../helpers/e2e";
 import { testSuite } from "../lib";
 
-testSuite("dev command", ({ test, expect }) => {
-    test("starts without throwing error", async () => {
+testSuite("build command", ({ test }) => {
+    test("runs without throwing error", async () => {
         await withTempDir(async (tempDirPath) => {
             await fs.writeFile(
                 path.join(tempDirPath, "tsconfig.json"),
@@ -64,17 +62,12 @@ testSuite("dev command", ({ test, expect }) => {
             );
             const cmd = runCommand(
                 "node",
-                [WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "dev"],
+                [WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "build"],
                 {
                     cwd: tempDirPath,
-                    timeoutMs: 10_000,
                 }
             );
-            // FIXME: This test is a bit brittle due to relying on timeouts.
-            await wait(5_000);
-            cmd.process.kill();
-            const stdout = await cmd.complete;
-            expect(stdout).toStartWith("Listening at");
+            await cmd.complete;
         });
     });
 
@@ -117,17 +110,12 @@ testSuite("dev command", ({ test, expect }) => {
             );
             const cmd = runCommand(
                 "node",
-                [WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "dev"],
+                [WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "build"],
                 {
                     cwd: tempDirPath,
-                    timeoutMs: 10_000,
                 }
             );
-            // FIXME: This test is a bit brittle due to relying on timeouts.
-            await wait(5_000);
-            cmd.process.kill();
-            const stdout = await cmd.complete;
-            expect(stdout).toStartWith("Listening at");
+            await cmd.complete;
         });
     });
 });
