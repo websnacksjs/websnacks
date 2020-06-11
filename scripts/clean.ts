@@ -8,6 +8,7 @@ import * as path from "path";
 
 const ROOT_DIR = path.resolve(__dirname, "..");
 const DIST_DIR = path.join(ROOT_DIR, "dist");
+const TEST_DIR = path.join(ROOT_DIR, ".test-dist");
 
 const rmdirRecursive = (dirPath: string): void => {
     if (!fs.existsSync(dirPath)) {
@@ -27,3 +28,4 @@ const rmdirRecursive = (dirPath: string): void => {
 };
 
 rmdirRecursive(DIST_DIR);
+rmdirRecursive(TEST_DIR);
