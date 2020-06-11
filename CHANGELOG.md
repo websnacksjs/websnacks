@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/websnacksjs/websnacks/releases/tag/v0.1.4) (2020-06-10)
+
+### Bugfixes
+
+-   dev cmd didn't watch files due to import mangling ([4e44d83](https://github.com/websnacksjs/websnacks/commit/4e44d8369451e19af616a8c03c2ff7f4065b3f50))
+-   dont require config file ([5520bb3](https://github.com/websnacksjs/websnacks/commit/5520bb3571189726df73a2945d9a6e7f5671e7ff))
+
 ## [0.1.3](https://github.com/websnacksjs/websnacks/releases/tag/v0.1.3) (2020-06-04)
 
 ### Features
