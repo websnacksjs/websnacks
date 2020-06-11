@@ -6,7 +6,9 @@
 import { promises as fs } from "fs";
 import * as path from "path";
 
-import { runCommand, WEBSNACKS_BIN_PATH, WEBSNACKS_REPO_ROOT, withTempDir } from "../helpers/e2e";
+import {
+    npmCmd, runCommand, WEBSNACKS_BIN_PATH, WEBSNACKS_REPO_ROOT, withTempDir
+} from "../helpers/e2e";
 import { testSuite } from "../lib";
 
 testSuite("build command", ({ test }) => {
@@ -69,7 +71,7 @@ testSuite("build command", ({ test }) => {
                 }),
                 { encoding: "utf8" }
             );
-            await runCommand("npm", ["install", "--silent"], {
+            await runCommand(npmCmd, ["install", "--silent"], {
                 cwd: tempDirPath,
             }).complete;
             const cmd = runCommand(
@@ -129,7 +131,7 @@ testSuite("build command", ({ test }) => {
                 }),
                 { encoding: "utf8" }
             );
-            await runCommand("npm", ["install", "--silent"], {
+            await runCommand(npmCmd, ["install", "--silent"], {
                 cwd: tempDirPath,
             }).complete;
             const cmd = runCommand(
