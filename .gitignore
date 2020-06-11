@@ -1,4 +1,4 @@
 /dist
-/.test-dist
+/.temp
 public/
 node_modules/

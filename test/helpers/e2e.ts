@@ -20,7 +20,7 @@ export const wait = async (timeMs: number): Promise<void> => {
     });
 };
 
-const TEST_DIST_PATH = path.resolve(__dirname, "..", "..", ".test-dist");
+const TEMP_PATH = path.resolve(__dirname, "..", "..", ".temp");
 
 /**
  * Perform an operation within a unique temporary directory created within a
@@ -38,8 +38,8 @@ const TEST_DIST_PATH = path.resolve(__dirname, "..", "..", ".test-dist");
 export const withTempDir = async (
     op: (tempDirPath: string) => Promise<void> | void
 ): Promise<void> => {
-    await fs.mkdir(TEST_DIST_PATH, { recursive: true });
-    const tempDirPath = await fs.mkdtemp(`${TEST_DIST_PATH}/`);
+    await fs.mkdir(TEMP_PATH, { recursive: true });
+    const tempDirPath = await fs.mkdtemp(`${TEMP_PATH}/`);
     try {
         await op(tempDirPath);
     } catch (error) {
