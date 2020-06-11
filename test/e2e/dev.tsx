@@ -7,7 +7,7 @@ import { promises as fs } from "fs";
 import * as path from "path";
 
 import {
-    runCommand, wait, WEBSNACKS_BIN_PATH, WEBSNACKS_REPO_ROOT, withTempDir
+    npmCmd, runCommand, wait, WEBSNACKS_BIN_PATH, WEBSNACKS_REPO_ROOT, withTempDir
 } from "../helpers/e2e";
 import { testSuite } from "../lib";
 
@@ -40,7 +40,7 @@ testSuite("dev command", ({ test, expect }) => {
             await fs.writeFile(
                 path.join(tempDirPath, "websnacks.ts"),
                 `
-                import { Config } from "${WEBSNACKS_REPO_ROOT}";
+                import { Config } from "websnacks";
                 const config: Config = {
                     watch: [],
                 };
@@ -55,13 +55,25 @@ testSuite("dev command", ({ test, expect }) => {
             await fs.writeFile(
                 path.join(pagesPath, "index.tsx"),
                 `
-                import { createElement } from "${WEBSNACKS_REPO_ROOT}";
+                import { createElement } from "websnacks";
                 export const page = () => <html />;
                 `,
                 {
                     encoding: "utf8",
                 }
             );
+            await fs.writeFile(
+                path.join(tempDirPath, "package.json"),
+                JSON.stringify({
+                    devDependencies: {
+                        websnacks: `file:${WEBSNACKS_REPO_ROOT}`,
+                    },
+                }),
+                { encoding: "utf8" }
+            );
+            await runCommand(npmCmd, ["install", "--silent"], {
+                cwd: tempDirPath,
+            }).complete;
             const cmd = runCommand(
                 "node",
                 [WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "dev"],
@@ -107,13 +119,25 @@ testSuite("dev command", ({ test, expect }) => {
             await fs.writeFile(
                 path.join(pagesPath, "index.tsx"),
                 `
-                import { createElement } from "${WEBSNACKS_REPO_ROOT}";
+                import { createElement } from "websnacks";
                 export const page = () => <html />;
                 `,
                 {
                     encoding: "utf8",
                 }
             );
+            await fs.writeFile(
+                path.join(tempDirPath, "package.json"),
+                JSON.stringify({
+                    devDependencies: {
+                        websnacks: `file:${WEBSNACKS_REPO_ROOT}`,
+                    },
+                }),
+                { encoding: "utf8" }
+            );
+            await runCommand(npmCmd, ["install", "--silent"], {
+                cwd: tempDirPath,
+            }).complete;
             const cmd = runCommand(
                 "node",
                 [WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "dev"],

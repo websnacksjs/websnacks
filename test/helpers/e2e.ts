@@ -5,6 +5,7 @@
 
 import { ChildProcess, spawn } from "child_process";
 import { promises as fs } from "fs";
+import * as os from "os";
 import * as path from "path";
 
 /**
@@ -165,3 +166,5 @@ export const runCommand = (
         process,
     };
 };
+
+export const npmCmd = os.platform() === "win32" ? "npm.cmd" : "npm";
