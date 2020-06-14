@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.5](https://github.com/websnacksjs/websnacks/releases/tag/v0.1.5) (2020-06-14)
+
+### Bugfixes
+
+-   stack size exceed error on purging module cache ([32eee9b](https://github.com/websnacksjs/websnacks/commit/32eee9b2e04475452905e3478f0fa2a21ad3ccf4))
+
 ## [0.1.4](https://github.com/websnacksjs/websnacks/releases/tag/v0.1.4) (2020-06-10)
 
 ### Bugfixes
