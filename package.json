@@ -7,6 +7,7 @@
         "email": "mgeorge@technopolitica.com"
     },
     "license": "MPL-2.0",
+    "repository": "github:websnacksjs/websnacks",
     "engines": {
         "node": ">=10"
     },
