@@ -5,7 +5,7 @@
 
 import * as path from "path";
 
-import { purgeModuleAndDepsFromCache } from "./utils";
+import { decacheModule } from "./utils";
 
 /**
  * Paths used during configuration.
@@ -63,7 +63,7 @@ export const loadConfig = async (rootDir: string): Promise<Config> => {
     // Attempt to load a websnacks.ts/js file in rootDir.
     try {
         configPath = require.resolve(path.resolve(rootDir, "websnacks"));
-        purgeModuleAndDepsFromCache(configPath);
+        decacheModule(configPath);
         // TODO: validate user config.
         userConfig = await import(configPath);
     } catch (error) {

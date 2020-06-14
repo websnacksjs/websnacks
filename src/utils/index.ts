@@ -6,6 +6,8 @@
 import { promises as fs } from "fs";
 import * as path from "path";
 
+export { decacheModule } from "./decache-module";
+
 /**
  * Recursively walk a directory, returning the files it finds.
  *
@@ -25,28 +27,6 @@ export const walkDir = async function* (
             yield path.join(dirPath, dirEnt.name);
         }
     }
-};
-
-/**
- * Purge cached versions of a node module and all of its dependencies from the
- * global require cache, ensuring that future imports reload the module from
- * disk.
- *
- * @param modName Name of the module to purge from the require cache.
- */
-export const purgeModuleAndDepsFromCache = (modName: string): void => {
-    const modPath = require.resolve(modName);
-    if (modPath == null) {
-        return;
-    }
-    const mod = require.cache[modPath];
-    if (mod == null) {
-        return;
-    }
-    for (const child of mod.children) {
-        purgeModuleAndDepsFromCache(child.id);
-    }
-    delete require.cache[modPath];
 };
 
 export type Flattenable<T> = Array<T | Flattenable<T>>;
