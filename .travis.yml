@@ -1,3 +1,5 @@
+git:
+    autocrlf: input
 language: node_js
 os:
     - linux
