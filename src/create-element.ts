@@ -60,7 +60,7 @@ export function createElement(
             typeof value !== "boolean"
         ) {
             console.warn(
-                `non-primitive attribute ${key} = ${JSON.stringify(value)}`
+                `non-primitive attribute ${key} = ${JSON.stringify(value)}`,
             );
             continue;
         }

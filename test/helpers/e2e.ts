@@ -36,7 +36,7 @@ const TEMP_PATH = path.resolve(__dirname, "..", "..", ".temp");
  *           directory path as its only argument.
  */
 export const withTempDir = async (
-    op: (tempDirPath: string) => Promise<void> | void
+    op: (tempDirPath: string) => Promise<void> | void,
 ): Promise<void> => {
     await fs.mkdir(TEMP_PATH, { recursive: true });
     const tempDirPath = await fs.mkdtemp(`${TEMP_PATH}/`);
@@ -57,7 +57,7 @@ export const WEBSNACKS_REPO_ROOT = path.resolve(__dirname, "..", "..");
 export const WEBSNACKS_BIN_PATH = path.join(
     WEBSNACKS_REPO_ROOT,
     "bin",
-    "websnacks.js"
+    "websnacks.js",
 );
 
 /**
@@ -113,7 +113,7 @@ const DEFAULT_CLI_OPTIONS = {
 export const runCommand = (
     command: string,
     args: string[] = [],
-    options?: CliOptions
+    options?: CliOptions,
 ): AsyncCommand => {
     const optionsWithDefaults = { ...DEFAULT_CLI_OPTIONS, ...options };
     const process = spawn(command, args, {
@@ -138,8 +138,8 @@ export const runCommand = (
             process.kill();
             reject(
                 new Error(
-                    `max timeout of ${optionsWithDefaults.timeoutMs}ms reached`
-                )
+                    `max timeout of ${optionsWithDefaults.timeoutMs}ms reached`,
+                ),
             );
         }, optionsWithDefaults.timeoutMs);
         process.on("exit", (code) => {

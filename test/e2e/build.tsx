@@ -7,7 +7,11 @@ import { promises as fs } from "fs";
 import * as path from "path";
 
 import {
-    npmCmd, runCommand, WEBSNACKS_BIN_PATH, WEBSNACKS_REPO_ROOT, withTempDir
+    npmCmd,
+    runCommand,
+    WEBSNACKS_BIN_PATH,
+    WEBSNACKS_REPO_ROOT,
+    withTempDir,
 } from "../helpers/e2e";
 import { testSuite } from "../lib";
 
@@ -35,7 +39,7 @@ testSuite("build command", ({ test }) => {
                 }),
                 {
                     encoding: "utf8",
-                }
+                },
             );
             await fs.writeFile(
                 path.join(tempDirPath, "websnacks.ts"),
@@ -48,7 +52,7 @@ testSuite("build command", ({ test }) => {
                 `,
                 {
                     encoding: "utf8",
-                }
+                },
             );
             const pagesPath = path.join(tempDirPath, "pages");
             await fs.mkdir(pagesPath);
@@ -60,7 +64,7 @@ testSuite("build command", ({ test }) => {
                 `,
                 {
                     encoding: "utf8",
-                }
+                },
             );
             await fs.writeFile(
                 path.join(tempDirPath, "package.json"),
@@ -69,7 +73,7 @@ testSuite("build command", ({ test }) => {
                         websnacks: `file:${WEBSNACKS_REPO_ROOT}`,
                     },
                 }),
-                { encoding: "utf8" }
+                { encoding: "utf8" },
             );
             await runCommand(npmCmd, ["install", "--silent"], {
                 cwd: tempDirPath,
@@ -79,7 +83,7 @@ testSuite("build command", ({ test }) => {
                 [WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "build"],
                 {
                     cwd: tempDirPath,
-                }
+                },
             );
             await cmd.complete;
         });
@@ -108,7 +112,7 @@ testSuite("build command", ({ test }) => {
                 }),
                 {
                     encoding: "utf8",
-                }
+                },
             );
             const pagesPath = path.join(tempDirPath, "pages");
             await fs.mkdir(pagesPath);
@@ -120,7 +124,7 @@ testSuite("build command", ({ test }) => {
                 `,
                 {
                     encoding: "utf8",
-                }
+                },
             );
             await fs.writeFile(
                 path.join(tempDirPath, "package.json"),
@@ -129,7 +133,7 @@ testSuite("build command", ({ test }) => {
                         websnacks: `file:${WEBSNACKS_REPO_ROOT}`,
                     },
                 }),
-                { encoding: "utf8" }
+                { encoding: "utf8" },
             );
             await runCommand(npmCmd, ["install", "--silent"], {
                 cwd: tempDirPath,
@@ -139,7 +143,7 @@ testSuite("build command", ({ test }) => {
                 [WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "build"],
                 {
                     cwd: tempDirPath,
-                }
+                },
             );
             await cmd.complete;
         });

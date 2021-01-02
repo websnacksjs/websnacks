@@ -26,7 +26,7 @@ const injectLiveReloadScript = (htmlContents: string, port: number): string =>
             };
         </script>
         </html>
-    `
+    `,
     );
 
 const guessMimeType = (ext: string): string => {
@@ -126,7 +126,7 @@ const portFromServer = (server: Pick<net.Server, "address">): number => {
     }
     if (typeof addrInfo === "string") {
         throw new Error(
-            `server address is a string (this should never happen!)`
+            `server address is a string (this should never happen!)`,
         );
     }
     return addrInfo.port;
@@ -187,7 +187,7 @@ const startHttpServer = async (publicDir: string): Promise<http.Server> => {
 };
 
 const startWebSocketServer = async (
-    httpServer: http.Server
+    httpServer: http.Server,
 ): Promise<import("ws").Server | undefined> => {
     // Attempt to load the ws module, aborting if it isn't available.
     let ws;
@@ -209,7 +209,7 @@ const startWebSocketServer = async (
 
 const watchFolders = async (
     folders: string[],
-    listener: (eventType: "update" | "remove", fileName: string) => void
+    listener: (eventType: "update" | "remove", fileName: string) => void,
 ): Promise<void> => {
     // Try to load node-watch, falling back to fs watch if node-watch isn't
     // available.
@@ -223,7 +223,7 @@ const watchFolders = async (
         }
         console.warn(
             `'node-watch' module not found, falling back to fs.watch (may ` +
-                `result in file watch issues on some OSes)`
+                `result in file watch issues on some OSes)`,
         );
     }
     // NOTE: fs.watch has significant cross-platform issues, including
@@ -279,7 +279,7 @@ const devCommand: Command = {
         const httpServer = await startHttpServer(outDir);
         const wsServer = await startWebSocketServer(httpServer);
         const watchedFolders = config.watch.filter((filePath) =>
-            existsSync(filePath)
+            existsSync(filePath),
         );
         await watchFolders(watchedFolders, async (event, filePath) => {
             console.log(`${filePath}:${event} triggering rebuild...`);

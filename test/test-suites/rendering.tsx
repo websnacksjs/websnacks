@@ -10,7 +10,7 @@ import { testSuite } from "../lib";
 testSuite("renderPage", ({ test, expect }) => {
     test("throws an Error when root elem is not html tag", () => {
         expect(() => renderPage(<div />)).toThrowErrorMatching(
-            "attempted to render page with non-HTML root element div"
+            "attempted to render page with non-HTML root element div",
         );
     });
 
@@ -21,10 +21,10 @@ testSuite("renderPage", ({ test, expect }) => {
 
     test("escapes HTML in tag names", () => {
         const html = renderPage(
-            <html>{createElement("div></div", null)}</html>
+            <html>{createElement("div></div", null)}</html>,
         );
         expect(html).toEqual(
-            "<!DOCTYPE html><html><div&gt;&lt;/div></div&gt;&lt;/div></html>"
+            "<!DOCTYPE html><html><div&gt;&lt;/div></div&gt;&lt;/div></html>",
         );
     });
 
@@ -32,10 +32,10 @@ testSuite("renderPage", ({ test, expect }) => {
         const html = renderPage(
             <html>
                 <div className="test" id="1" />
-            </html>
+            </html>,
         );
         expect(html).toEqual(
-            '<!DOCTYPE html><html><div class="test" id="1"></div></html>'
+            '<!DOCTYPE html><html><div class="test" id="1"></div></html>',
         );
     });
 
@@ -48,17 +48,17 @@ testSuite("renderPage", ({ test, expect }) => {
                 <body>
                     <div />
                 </body>
-            </html>
+            </html>,
         );
         expect(html).toEqual(
-            "<!DOCTYPE html><html><head><title></title></head><body><div></div></body></html>"
+            "<!DOCTYPE html><html><head><title></title></head><body><div></div></body></html>",
         );
     });
 
     test("renders text nodes", () => {
         const html = renderPage(<html>There are three lights!</html>);
         expect(html).toEqual(
-            "<!DOCTYPE html><html>There are three lights!</html>"
+            "<!DOCTYPE html><html>There are three lights!</html>",
         );
     });
 
@@ -80,10 +80,10 @@ testSuite("renderPage", ({ test, expect }) => {
                     <Light lightN={lightN} />
                 ))}{" "}
                 lights!
-            </html>
+            </html>,
         );
         expect(html).toEqual(
-            "<!DOCTYPE html><html>There are <div>1</div><div>2</div><div>3</div> lights!</html>"
+            "<!DOCTYPE html><html>There are <div>1</div><div>2</div><div>3</div> lights!</html>",
         );
     });
 
@@ -97,10 +97,10 @@ testSuite("renderPage", ({ test, expect }) => {
         const html = renderPage(
             <html>
                 There are <Light nLights={3} />!
-            </html>
+            </html>,
         );
         expect(html).toEqual(
-            "<!DOCTYPE html><html>There are <div>3 lights</div>!</html>"
+            "<!DOCTYPE html><html>There are <div>3 lights</div>!</html>",
         );
     });
 
@@ -111,10 +111,10 @@ testSuite("renderPage", ({ test, expect }) => {
                     <div>test of</div>
                     <div>fragments</div>
                 </Fragment>
-            </html>
+            </html>,
         );
         expect(html).toEqual(
-            "<!DOCTYPE html><html><div>test of</div><div>fragments</div></html>"
+            "<!DOCTYPE html><html><div>test of</div><div>fragments</div></html>",
         );
     });
 });

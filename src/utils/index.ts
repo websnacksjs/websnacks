@@ -16,7 +16,7 @@ export { decacheModule } from "./decache-module";
  * @return Generator that yields the files found while walking the directory.
  */
 export const walkDir = async function* (
-    dirPath: string
+    dirPath: string,
 ): AsyncGenerator<string> {
     const dirEnts = await fs.readdir(dirPath, { withFileTypes: true });
     for (const dirEnt of dirEnts) {

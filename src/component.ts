@@ -41,7 +41,7 @@ export interface Component<P extends object = {}> {
     (
         props: P & {
             children?: Element[];
-        }
+        },
     ): HTMLElement;
 }
 

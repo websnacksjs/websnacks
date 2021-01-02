@@ -27,7 +27,7 @@ const renderPagesToHtml = async ({
         const pageSrc = require(srcPath);
         if (!("page" in pageSrc)) {
             throw new Error(
-                `page source at ${srcPath} does not export a "page" variable`
+                `page source at ${srcPath} does not export a "page" variable`,
             );
         }
         let compiledHtml;
@@ -35,7 +35,7 @@ const renderPagesToHtml = async ({
             compiledHtml = renderPage(pageSrc.page());
         } catch (error) {
             throw new Error(
-                `failed to compile ${srcPath}: ${error.stack ?? error}`
+                `failed to compile ${srcPath}: ${error.stack ?? error}`,
             );
         }
         const relPath = path.relative(pagesDir, path.dirname(srcPath));
@@ -48,7 +48,7 @@ const renderPagesToHtml = async ({
             (async () => {
                 await fs.mkdir(path.dirname(destPath), { recursive: true });
                 await fs.writeFile(destPath, compiledHtml);
-            })()
+            })(),
         );
     }
     await Promise.all(deferred);
@@ -73,7 +73,7 @@ const copyStaticAssets = async ({
             (async () => {
                 await fs.mkdir(path.dirname(destPath), { recursive: true });
                 await fs.copyFile(assetPath, destPath);
-            })()
+            })(),
         );
     }
     await Promise.all(deferred);

@@ -63,7 +63,7 @@ const startTag = (elem: HTMLElement): string => {
             output += ` ${normalizedAttrName}=""`;
         } else {
             output += ` ${normalizedAttrName}="${escapeAttr(
-                attrValue.toString()
+                attrValue.toString(),
             )}"`;
         }
     }
@@ -94,13 +94,13 @@ export const renderPage = (rootElem: Element): string => {
     if (typeof rootElem !== "object" || !("tag" in rootElem)) {
         throw new Error(
             `root page element must be a valid HTMLElement, got ${JSON.stringify(
-                rootElem
-            )}`
+                rootElem,
+            )}`,
         );
     }
     if (rootElem.tag.toLowerCase() !== "html") {
         throw new Error(
-            `attempted to render page with non-HTML root element ${rootElem.tag}`
+            `attempted to render page with non-HTML root element ${rootElem.tag}`,
         );
     }
 

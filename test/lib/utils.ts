@@ -33,7 +33,7 @@ const areArraysEqual = <T>(a: T[], b: T[]): boolean => {
 
 const areObjectsEqual = <T extends Record<string, unknown>>(
     a: T,
-    b: T
+    b: T,
 ): boolean => {
     const aKeys = Object.keys(a) as Array<keyof T>;
     const bKeys = Object.keys(b) as Array<keyof T>;
@@ -67,7 +67,7 @@ export const areEqual = <T>(a: T, b: T): boolean => {
     if (typeof a === "object" && typeof b === "object") {
         return areObjectsEqual(
             a as Record<string, unknown>,
-            b as Record<string, unknown>
+            b as Record<string, unknown>,
         );
     }
     return a === b;

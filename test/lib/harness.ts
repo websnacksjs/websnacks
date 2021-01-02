@@ -40,7 +40,7 @@ const runTest = async (test: Test): Promise<TestResult> => {
                 error instanceof Error
                     ? error
                     : new Error(
-                          `threw non-error object: ${displayValue(error)}`
+                          `threw non-error object: ${displayValue(error)}`,
                       ),
         };
     }
@@ -86,7 +86,7 @@ export interface TestSuiteContext {
  */
 export const testSuite = (
     suiteName: string,
-    def: (ctx: TestSuiteContext) => void
+    def: (ctx: TestSuiteContext) => void,
 ): void => {
     const tests: Test[] = [];
     const test = (name: string, runTest: () => void | Promise<void>): void => {
@@ -104,14 +104,14 @@ export const testSuite = (
             if (testResult.result === "fail") {
                 console.error(
                     `[TEST FAILURE] "${suiteName}": "${testResult.testName}": ` +
-                        `${testResult.error.stack}\n`
+                        `${testResult.error.stack}\n`,
                 );
                 continue;
             }
             passed += 1;
         }
         console.info(
-            `[TEST] suite "${suiteName}": ${passed} of ${tests.length} succeeded\n\n`
+            `[TEST] suite "${suiteName}": ${passed} of ${tests.length} succeeded\n\n`,
         );
         if (passed < tests.length) {
             process.exitCode = 1;

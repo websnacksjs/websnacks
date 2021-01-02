@@ -7,7 +7,12 @@ import { promises as fs } from "fs";
 import * as path from "path";
 
 import {
-    npmCmd, runCommand, wait, WEBSNACKS_BIN_PATH, WEBSNACKS_REPO_ROOT, withTempDir
+    npmCmd,
+    runCommand,
+    wait,
+    WEBSNACKS_BIN_PATH,
+    WEBSNACKS_REPO_ROOT,
+    withTempDir,
 } from "../helpers/e2e";
 import { testSuite } from "../lib";
 
@@ -35,7 +40,7 @@ testSuite("dev command", ({ test, expect }) => {
                 }),
                 {
                     encoding: "utf8",
-                }
+                },
             );
             await fs.writeFile(
                 path.join(tempDirPath, "websnacks.ts"),
@@ -48,7 +53,7 @@ testSuite("dev command", ({ test, expect }) => {
                 `,
                 {
                     encoding: "utf8",
-                }
+                },
             );
             const pagesPath = path.join(tempDirPath, "pages");
             await fs.mkdir(pagesPath);
@@ -60,7 +65,7 @@ testSuite("dev command", ({ test, expect }) => {
                 `,
                 {
                     encoding: "utf8",
-                }
+                },
             );
             await fs.writeFile(
                 path.join(tempDirPath, "package.json"),
@@ -69,7 +74,7 @@ testSuite("dev command", ({ test, expect }) => {
                         websnacks: `file:${WEBSNACKS_REPO_ROOT}`,
                     },
                 }),
-                { encoding: "utf8" }
+                { encoding: "utf8" },
             );
             await runCommand(npmCmd, ["install", "--silent"], {
                 cwd: tempDirPath,
@@ -79,7 +84,7 @@ testSuite("dev command", ({ test, expect }) => {
                 [WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "dev"],
                 {
                     cwd: tempDirPath,
-                }
+                },
             );
             // FIXME: This test is a bit brittle due to relying on timeouts.
             await wait(10_000);
@@ -112,7 +117,7 @@ testSuite("dev command", ({ test, expect }) => {
                 }),
                 {
                     encoding: "utf8",
-                }
+                },
             );
             const pagesPath = path.join(tempDirPath, "pages");
             await fs.mkdir(pagesPath);
@@ -124,7 +129,7 @@ testSuite("dev command", ({ test, expect }) => {
                 `,
                 {
                     encoding: "utf8",
-                }
+                },
             );
             await fs.writeFile(
                 path.join(tempDirPath, "package.json"),
@@ -133,7 +138,7 @@ testSuite("dev command", ({ test, expect }) => {
                         websnacks: `file:${WEBSNACKS_REPO_ROOT}`,
                     },
                 }),
-                { encoding: "utf8" }
+                { encoding: "utf8" },
             );
             await runCommand(npmCmd, ["install", "--silent"], {
                 cwd: tempDirPath,
@@ -143,7 +148,7 @@ testSuite("dev command", ({ test, expect }) => {
                 [WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "dev"],
                 {
                     cwd: tempDirPath,
-                }
+                },
             );
             // FIXME: This test is a bit brittle due to relying on timeouts.
             await wait(10_000);

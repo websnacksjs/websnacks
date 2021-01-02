@@ -10,7 +10,7 @@ class ExpectError extends Error {
         super(
             `${reason}\n` +
                 `\texpected: ${displayValue(expected)}\n` +
-                `\tactual  : ${displayValue(actual)}`
+                `\tactual  : ${displayValue(actual)}`,
         );
     }
 }
@@ -50,7 +50,7 @@ export class Expect<T> {
             throw new ExpectError(
                 `value does not equal expected`,
                 expected,
-                this.value
+                this.value,
             );
         }
     }
@@ -73,7 +73,7 @@ export class StringExpect extends Expect<string> {
             throw new ExpectError(
                 `value does not match expected pattern`,
                 pattern,
-                this.value
+                this.value,
             );
         }
     }
@@ -91,7 +91,7 @@ export class StringExpect extends Expect<string> {
             throw new ExpectError(
                 `value does not start with expected prefix`,
                 prefix,
-                this.value
+                this.value,
             );
         }
     }
@@ -109,7 +109,7 @@ export class StringExpect extends Expect<string> {
             throw new ExpectError(
                 `value does not end with expected suffix`,
                 suffix,
-                this.value
+                this.value,
             );
         }
     }
@@ -138,14 +138,14 @@ export class FunctionExpect<T> extends Expect<() => T> {
                 throw new ExpectError(
                     `function threw non-Error value`,
                     pattern,
-                    error
+                    error,
                 );
             }
             if (!matches(error.message, pattern)) {
                 throw new ExpectError(
                     `thrown Error's message does not match pattern`,
                     pattern,
-                    error.message
+                    error.message,
                 );
             }
             return;
@@ -153,7 +153,7 @@ export class FunctionExpect<T> extends Expect<() => T> {
         throw new ExpectError(
             `function did not throw expected error`,
             pattern,
-            null
+            null,
         );
     }
 }

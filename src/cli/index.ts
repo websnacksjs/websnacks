@@ -24,7 +24,7 @@ interface Options {
 }
 
 const parseArgs = (
-    args: string[]
+    args: string[],
 ): { options: Options; commandName?: string; commandArgs: string[] } => {
     const options: Options = {
         showHelp: false,
@@ -46,7 +46,7 @@ const parseArgs = (
                 if (moduleName == null) {
                     throw new UsageError(
                         `-r requires a valid module name`,
-                        globalHelpText
+                        globalHelpText,
                     );
                 }
                 options.require.push(moduleName);
@@ -84,7 +84,7 @@ const _main = async (args: string[]): Promise<void> => {
         default:
             throw new UsageError(
                 `unknown command ${commandName}`,
-                globalHelpText
+                globalHelpText,
             );
     }
     // NOTE: Should this just delegate to the command?
