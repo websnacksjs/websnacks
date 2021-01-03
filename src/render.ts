@@ -34,8 +34,12 @@ const renderElement = (elem: Element): string => {
 
     let output = "";
     output += startTag(elem);
-    for (const child of elem.children) {
-        output += renderElement(child);
+    if (elem.attributes.dangerouslySetInnerHTML != null) {
+        output += elem.attributes.dangerouslySetInnerHTML;
+    } else {
+        for (const child of elem.children) {
+            output += renderElement(child);
+        }
     }
     output += endTag(elem);
     return output;
@@ -52,6 +56,11 @@ const startTag = (elem: HTMLElement): string => {
         // Handle boolean attributes with a false value by not outputting the
         // attribute at all.
         if (attrValue === false) {
+            continue;
+        }
+
+        // Ignore the special attr for setting raw inner HTML.
+        if (attrName === "dangerouslySetInnerHTML") {
             continue;
         }
 

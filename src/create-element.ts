@@ -54,6 +54,15 @@ export function createElement(
     }
     const attrs: Record<string, string | number | boolean> = {};
     for (const [key, value] of Object.entries(props || {})) {
+        if (key === "dangerouslySetInnerHTML") {
+            if (children.length > 0) {
+                throw new Error(
+                    'An element with children may not have a "dangerouslySetInnerHTML" prop since children would be overriden',
+                );
+            }
+            attrs[key] = value.__html;
+            continue;
+        }
         if (
             typeof value !== "string" &&
             typeof value !== "number" &&

@@ -25,7 +25,14 @@ export interface MicrodataAttributes {
     itemRef?: string;
 }
 
-export interface HTMLAttributes extends RdfaAttributes, MicrodataAttributes {
+export interface SetInnerHtmlAttributes {
+    dangerouslySetInnerHTML?: { __html: string };
+}
+
+export interface HTMLAttributes
+    extends RdfaAttributes,
+        MicrodataAttributes,
+        SetInnerHtmlAttributes {
     accept?: string;
     acceptCharset?: string;
     accessKey?: string;

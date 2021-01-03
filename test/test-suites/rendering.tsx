@@ -117,4 +117,37 @@ testSuite("renderPage", ({ test, expect }) => {
             "<!DOCTYPE html><html><div>test of</div><div>fragments</div></html>",
         );
     });
+
+    test("renders unescaped HTML via dangerouslySetInnerHTML", () => {
+        const html = renderPage(
+            <html>
+                <div
+                    dangerouslySetInnerHTML={{
+                        __html: "<div>red alert!</div>",
+                    }}
+                />
+            </html>,
+        );
+        expect(html).toEqual(
+            "<!DOCTYPE html><html><div><div>red alert!</div></div></html>",
+        );
+    });
+
+    test("throws error when both dangerouslySetInnerHTML and children prop present", () => {
+        expect(() =>
+            renderPage(
+                <html>
+                    <div
+                        dangerouslySetInnerHTML={{
+                            __html: "<div>set phasers to kill</div>",
+                        }}
+                    >
+                        <div>set phasers to stun</div>
+                    </div>
+                </html>,
+            ),
+        ).toThrowErrorMatching(
+            'An element with children may not have a "dangerouslySetInnerHTML" prop since children would be overriden',
+        );
+    });
 });
