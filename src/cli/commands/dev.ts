@@ -166,7 +166,7 @@ const startHttpServer = async (publicDir: string): Promise<http.Server> => {
         });
         res.end(contents);
     });
-    const listen = async (port?: number): Promise<string> =>
+    const listen = async (port?: number): Promise<void> =>
         new Promise((resolve, reject) => {
             httpServer
                 .once("error", (error) => reject(error))
