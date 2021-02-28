@@ -209,7 +209,7 @@ const startWebSocketServer = async (
 
 const watchFolders = async (
     folders: string[],
-    listener: (eventType: "update" | "remove", fileName: string) => void,
+    listener: (eventType?: "update" | "remove", fileName?: string) => void,
 ): Promise<void> => {
     // Try to load node-watch, falling back to fs watch if node-watch isn't
     // available.
@@ -282,7 +282,11 @@ const devCommand: Command = {
             existsSync(filePath),
         );
         await watchFolders(watchedFolders, async (event, filePath) => {
-            console.log(`${filePath}:${event} triggering rebuild...`);
+            const filePathForLog = filePath || "<UNKNOWN_FILE>";
+            const eventForLog = event || "<UNKNOWN_EVENT>";
+            console.log(
+                `${filePathForLog}:${eventForLog} triggering rebuild...`,
+            );
             await rebuild();
             if (wsServer != null) {
                 console.log(`rebuild finished, reloading browsers...`);
