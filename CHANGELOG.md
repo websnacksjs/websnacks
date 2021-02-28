@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.0](https://github.com/websnacksjs/websnacks/releases/tag/v0.2.0) (2021-02-28)
+
+### Features
+
+-   add dangerouslySetInnerHTML attr ([#15](https://github.com/websnacksjs/websnacks/issues/15), [3f356dd](https://github.com/websnacksjs/websnacks/commit/3f356ddfeeb38e8a60c32d26c3e9e8715d0246c3))
+
+### Misc
+
+-   **BREAKING CHANGE** update node-watch optional dep to major v0.7.1
+
 ## [0.1.5](https://github.com/websnacksjs/websnacks/releases/tag/v0.1.5) (2020-06-14)
 
 ### Bugfixes
