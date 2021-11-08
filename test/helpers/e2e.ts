@@ -20,33 +20,6 @@ export const wait = async (timeMs: number): Promise<void> => {
     });
 };
 
-const TEMP_PATH = path.resolve(__dirname, "..", "..", ".temp");
-
-/**
- * Perform an operation within a unique temporary directory created within a
- * special .test-dist folder within this websnacks repository.
- *
- * @note Currently the temporary folder is **not** cleaned up once the operation
- *       has finished. I've had issues with losing work due to buggy removal
- *       code and haven't been willing to risk it again. To cleanup these
- *       temporary folders it should be as easy as removing the whole
- *       ".test-dist" folder from your checkout.
- *
- * @param op Operation to perform which receives the fully resolved temp
- *           directory path as its only argument.
- */
-export const withTempDir = async (
-    op: (tempDirPath: string) => Promise<void> | void
-): Promise<void> => {
-    await fs.mkdir(TEMP_PATH, { recursive: true });
-    const tempDirPath = await fs.mkdtemp(`${TEMP_PATH}/`);
-    try {
-        await op(tempDirPath);
-    } catch (error) {
-        throw new Error(`(${tempDirPath}): ${error}`);
-    }
-};
-
 /**
  * Fully resolved path to the root of this websnacks repository.
  */
@@ -168,3 +141,11 @@ export const runCommand = (
 };
 
 export const npmCmd = os.platform() === "win32" ? "npm.cmd" : "npm";
+
+const FIXTURES_PATH = path.resolve(__dirname, '..', 'e2e', 'fixtures');
+
+export const useFixture = async (fixtureName: string): Promise<string> => {
+    const fixturePath = path.join(FIXTURES_PATH, fixtureName);
+    await fs.stat(fixturePath);
+    return fixturePath;
+};
