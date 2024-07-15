@@ -34,9 +34,7 @@ const renderPagesToHtml = async ({
         try {
             compiledHtml = renderPage(pageSrc.page());
         } catch (error) {
-            throw new Error(
-                `failed to compile ${srcPath}: ${error.stack ?? error}`,
-            );
+            throw new Error(`failed to compile ${srcPath}: ${error}`);
         }
         const relPath = path.relative(pagesDir, path.dirname(srcPath));
         let baseName = path.basename(srcPath, ".tsx");

@@ -5,11 +5,11 @@
 
 import { existsSync, promises as fs, watch } from "fs";
 import * as http from "http";
-import * as net from "net";
 import * as path from "path";
 
 import { renderSite } from "../../build";
 import { Config, loadConfig } from "../../config";
+import { isErrnoException } from "../../utils/error";
 import { Command, UsageError } from "../types";
 
 const DEFAULT_SERVER_PORT = 8080;
@@ -119,14 +119,16 @@ const guessMimeType = (ext: string): string => {
     return mimeType;
 };
 
-const portFromServer = (server: Pick<net.Server, "address">): number => {
-    const addrInfo = server.address();
-    if (addrInfo == null) {
-        throw new Error(`server address is null (this should never happen!)`);
-    }
-    if (typeof addrInfo === "string") {
+const portFromServer = (
+    addrInfo: { port: number } | object | string | undefined | null,
+): number => {
+    if (
+        typeof addrInfo !== "object" ||
+        addrInfo == null ||
+        !("port" in addrInfo)
+    ) {
         throw new Error(
-            `server address is a string (this should never happen!)`,
+            "server address does not have a valid port (this should never happen!)",
         );
     }
     return addrInfo.port;
@@ -158,7 +160,7 @@ const startHttpServer = async (publicDir: string): Promise<http.Server> => {
         }
         const mimeType = guessMimeType(reqExt);
         if (mimeType === "text/html") {
-            const port = portFromServer(req.socket);
+            const port = portFromServer(req.socket.address());
             contents = injectLiveReloadScript(contents.toString("utf8"), port);
         }
         res.writeHead(200, {
@@ -176,12 +178,16 @@ const startHttpServer = async (publicDir: string): Promise<http.Server> => {
     try {
         await listen(DEFAULT_SERVER_PORT);
     } catch (error) {
-        if (error.code !== "EADDRINUSE") {
+        if (
+            error instanceof Error &&
+            isErrnoException(error) &&
+            error.code !== "EADDRINUSE"
+        ) {
             throw error;
         }
         await listen();
     }
-    const port = portFromServer(httpServer);
+    const port = portFromServer(httpServer.address());
     console.log(`Listening at http://127.0.0.1:${port}`);
     return httpServer;
 };
@@ -194,7 +200,11 @@ const startWebSocketServer = async (
     try {
         ws = await import("ws");
     } catch (error) {
-        if (error.code !== "MODULE_NOT_FOUND") {
+        if (
+            error instanceof Error &&
+            isErrnoException(error) &&
+            error.code !== "MODULE_NOT_FOUND"
+        ) {
             throw error;
         }
         console.warn(`'ws' module not found, live-reloading will be disabled`);
@@ -218,7 +228,11 @@ const watchFolders = async (
         nodeWatch.default(folders, { recursive: true }, listener);
         return;
     } catch (error) {
-        if (error.code !== "MODULE_NOT_FOUND") {
+        if (
+            error instanceof Error &&
+            isErrnoException(error) &&
+            error.code !== "MODULE_NOT_FOUND"
+        ) {
             throw error;
         }
         console.warn(
@@ -230,7 +244,7 @@ const watchFolders = async (
     //       triggering duplicate file events on some systems.
     for (const folder of folders) {
         watch(folder, { recursive: true }, (_, fileName) => {
-            listener("update", fileName);
+            listener("update", fileName || undefined);
         });
     }
 };

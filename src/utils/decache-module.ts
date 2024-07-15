@@ -3,11 +3,17 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+import { isErrnoException } from "./error";
+
 const resolveModulePath = (importPath: string): string | undefined => {
     try {
         return require.resolve(importPath);
     } catch (error) {
-        if (error.code === "MODULE_NOT_FOUND") {
+        if (
+            error instanceof Error &&
+            isErrnoException(error) &&
+            error.code === "MODULE_NOT_FOUND"
+        ) {
             return;
         }
         throw error;
