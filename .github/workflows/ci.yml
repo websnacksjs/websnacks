@@ -6,6 +6,13 @@ on:
         branches: [mainline]
 
 jobs:
+    check:
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+            - run: npm ci
+            - run: npm run check
+
     build:
         strategy:
             matrix:

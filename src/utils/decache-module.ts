@@ -6,35 +6,35 @@
 import { isErrnoException } from "./error";
 
 const resolveModulePath = (importPath: string): string | undefined => {
-    try {
-        return require.resolve(importPath);
-    } catch (error) {
-        if (
-            error instanceof Error &&
-            isErrnoException(error) &&
-            error.code === "MODULE_NOT_FOUND"
-        ) {
-            return;
-        }
-        throw error;
-    }
+	try {
+		return require.resolve(importPath);
+	} catch (error) {
+		if (
+			error instanceof Error &&
+			isErrnoException(error) &&
+			error.code === "MODULE_NOT_FOUND"
+		) {
+			return;
+		}
+		throw error;
+	}
 };
 
 const removeParentModuleRef = (mod: NodeModule): void => {
-    const parent = mod.parent;
-    if (parent == null) {
-        return;
-    }
+	const parent = mod.parent;
+	if (parent == null) {
+		return;
+	}
 
-    const siblings = parent.children;
-    const nSiblings = siblings.length;
-    for (let i = nSiblings - 1; i >= 0; i--) {
-        const sibling = siblings[i];
-        if (sibling.id === mod.id) {
-            siblings.splice(i, 1);
-            return;
-        }
-    }
+	const siblings = parent.children;
+	const nSiblings = siblings.length;
+	for (let i = nSiblings - 1; i >= 0; i--) {
+		const sibling = siblings[i];
+		if (sibling.id === mod.id) {
+			siblings.splice(i, 1);
+			return;
+		}
+	}
 };
 
 /**
@@ -47,29 +47,29 @@ const removeParentModuleRef = (mod: NodeModule): void => {
  * @throws Error if the module could not be resolved due to filesystem error.
  */
 export const decacheModule = (importPath: string): void => {
-    const modulePath = resolveModulePath(importPath);
-    if (modulePath == null) {
-        return;
-    }
+	const modulePath = resolveModulePath(importPath);
+	if (modulePath == null) {
+		return;
+	}
 
-    // DFS the module dependency tree, using iteration to avoid stack size
-    // exceeded exceptions.
-    const modsToCheck: NodeModule[] = [];
-    const visited: Set<string> = new Set();
-    let currentMod: NodeModule | undefined = require.cache[modulePath];
-    while (currentMod != null) {
-        if (visited.has(currentMod.id)) {
-            currentMod = modsToCheck.pop();
-            continue;
-        }
+	// DFS the module dependency tree, using iteration to avoid stack size
+	// exceeded exceptions.
+	const modsToCheck: NodeModule[] = [];
+	const visited: Set<string> = new Set();
+	let currentMod: NodeModule | undefined = require.cache[modulePath];
+	while (currentMod != null) {
+		if (visited.has(currentMod.id)) {
+			currentMod = modsToCheck.pop();
+			continue;
+		}
 
-        removeParentModuleRef(currentMod);
-        delete require.cache[currentMod.id];
-        for (const childMod of currentMod.children) {
-            modsToCheck.push(childMod);
-        }
+		removeParentModuleRef(currentMod);
+		delete require.cache[currentMod.id];
+		for (const childMod of currentMod.children) {
+			modsToCheck.push(childMod);
+		}
 
-        visited.add(currentMod.id);
-        currentMod = modsToCheck.pop();
-    }
+		visited.add(currentMod.id);
+		currentMod = modsToCheck.pop();
+	}
 };

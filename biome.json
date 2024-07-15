@@ -1,0 +1,36 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+	"organizeImports": {
+		"enabled": true,
+		"ignore": ["dist", "node_modules", ".temp"]
+	},
+	"formatter": {
+		"enabled": true,
+		"ignore": ["dist", "node_modules", ".temp"]
+	},
+	"linter": {
+		"enabled": true,
+		"ignore": ["dist", "node_modules", ".temp"],
+		"rules": {
+			"recommended": true,
+			"style": {
+				"useShorthandFunctionType": "off"
+			},
+			"correctness": {
+				"useJsxKeyInIterable": "off"
+			}
+		}
+	},
+	"overrides": [
+		{
+			"include": ["test"],
+			"linter": {
+				"rules": {
+					"a11y": {
+						"useHtmlLang": "off"
+					}
+				}
+			}
+		}
+	]
+}

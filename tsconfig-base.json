@@ -1,13 +1,13 @@
 {
-    "compilerOptions": {
-        "module": "CommonJS",
-        "moduleResolution": "node",
-        "target": "ES2018",
-        "lib": ["ES2018"],
-        "strict": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true
-    }
+	"compilerOptions": {
+		"module": "CommonJS",
+		"moduleResolution": "node",
+		"target": "ES2018",
+		"lib": ["ES2018"],
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true
+	}
 }

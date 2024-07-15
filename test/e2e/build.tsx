@@ -3,149 +3,149 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import { promises as fs } from "fs";
-import * as path from "path";
+import { promises as fs } from "node:fs";
+import * as path from "node:path";
 
 import {
-    npmCmd,
-    runCommand,
-    WEBSNACKS_BIN_PATH,
-    WEBSNACKS_REPO_ROOT,
-    withTempDir,
+	WEBSNACKS_BIN_PATH,
+	WEBSNACKS_REPO_ROOT,
+	npmCmd,
+	runCommand,
+	withTempDir,
 } from "../helpers/e2e";
 import { testSuite } from "../lib";
 
 testSuite("build command", ({ test }) => {
-    test("runs without throwing error", async () => {
-        await withTempDir(async (tempDirPath) => {
-            await fs.writeFile(
-                path.join(tempDirPath, "tsconfig.json"),
-                JSON.stringify({
-                    compilerOptions: {
-                        esModuleInterop: true,
-                        module: "CommonJS",
-                        moduleResolution: "node",
-                        jsx: "react",
-                        jsxFactory: "createElement",
-                        target: "ES2018",
-                        lib: ["ES2018"],
-                        strict: true,
-                        noUnusedLocals: true,
-                        noUnusedParameters: true,
-                        noImplicitReturns: true,
-                        noFallthroughCasesInSwitch: true,
-                    },
-                    include: ["components/**/*", "pages/**/*"],
-                }),
-                {
-                    encoding: "utf8",
-                },
-            );
-            await fs.writeFile(
-                path.join(tempDirPath, "websnacks.ts"),
-                `
+	test("runs without throwing error", async () => {
+		await withTempDir(async (tempDirPath) => {
+			await fs.writeFile(
+				path.join(tempDirPath, "tsconfig.json"),
+				JSON.stringify({
+					compilerOptions: {
+						esModuleInterop: true,
+						module: "CommonJS",
+						moduleResolution: "node",
+						jsx: "react",
+						jsxFactory: "createElement",
+						target: "ES2018",
+						lib: ["ES2018"],
+						strict: true,
+						noUnusedLocals: true,
+						noUnusedParameters: true,
+						noImplicitReturns: true,
+						noFallthroughCasesInSwitch: true,
+					},
+					include: ["components/**/*", "pages/**/*"],
+				}),
+				{
+					encoding: "utf8",
+				},
+			);
+			await fs.writeFile(
+				path.join(tempDirPath, "websnacks.ts"),
+				`
                 import { Config } from "websnacks";
                 const config: Config = {
                     watch: [],
                 };
                 export = config;
                 `,
-                {
-                    encoding: "utf8",
-                },
-            );
-            const pagesPath = path.join(tempDirPath, "pages");
-            await fs.mkdir(pagesPath);
-            await fs.writeFile(
-                path.join(pagesPath, "index.tsx"),
-                `
+				{
+					encoding: "utf8",
+				},
+			);
+			const pagesPath = path.join(tempDirPath, "pages");
+			await fs.mkdir(pagesPath);
+			await fs.writeFile(
+				path.join(pagesPath, "index.tsx"),
+				`
                 import { createElement } from "websnacks";
                 export const page = () => <html />;
                 `,
-                {
-                    encoding: "utf8",
-                },
-            );
-            await fs.writeFile(
-                path.join(tempDirPath, "package.json"),
-                JSON.stringify({
-                    devDependencies: {
-                        websnacks: `file:${WEBSNACKS_REPO_ROOT}`,
-                    },
-                }),
-                { encoding: "utf8" },
-            );
-            await runCommand(npmCmd, ["install", "--silent"], {
-                cwd: tempDirPath,
-            }).complete;
-            const cmd = runCommand(
-                "node",
-                [WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "build"],
-                {
-                    cwd: tempDirPath,
-                },
-            );
-            await cmd.complete;
-        });
-    });
+				{
+					encoding: "utf8",
+				},
+			);
+			await fs.writeFile(
+				path.join(tempDirPath, "package.json"),
+				JSON.stringify({
+					devDependencies: {
+						websnacks: `file:${WEBSNACKS_REPO_ROOT}`,
+					},
+				}),
+				{ encoding: "utf8" },
+			);
+			await runCommand(npmCmd, ["install", "--silent"], {
+				cwd: tempDirPath,
+			}).complete;
+			const cmd = runCommand(
+				"node",
+				[WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "build"],
+				{
+					cwd: tempDirPath,
+				},
+			);
+			await cmd.complete;
+		});
+	});
 
-    test("works without config file", async () => {
-        await withTempDir(async (tempDirPath) => {
-            await fs.writeFile(
-                path.join(tempDirPath, "tsconfig.json"),
-                JSON.stringify({
-                    compilerOptions: {
-                        esModuleInterop: true,
-                        module: "CommonJS",
-                        moduleResolution: "node",
-                        jsx: "react",
-                        jsxFactory: "createElement",
-                        target: "ES2018",
-                        lib: ["ES2018"],
-                        strict: true,
-                        noUnusedLocals: true,
-                        noUnusedParameters: true,
-                        noImplicitReturns: true,
-                        noFallthroughCasesInSwitch: true,
-                    },
-                    include: ["components/**/*", "pages/**/*"],
-                }),
-                {
-                    encoding: "utf8",
-                },
-            );
-            const pagesPath = path.join(tempDirPath, "pages");
-            await fs.mkdir(pagesPath);
-            await fs.writeFile(
-                path.join(pagesPath, "index.tsx"),
-                `
+	test("works without config file", async () => {
+		await withTempDir(async (tempDirPath) => {
+			await fs.writeFile(
+				path.join(tempDirPath, "tsconfig.json"),
+				JSON.stringify({
+					compilerOptions: {
+						esModuleInterop: true,
+						module: "CommonJS",
+						moduleResolution: "node",
+						jsx: "react",
+						jsxFactory: "createElement",
+						target: "ES2018",
+						lib: ["ES2018"],
+						strict: true,
+						noUnusedLocals: true,
+						noUnusedParameters: true,
+						noImplicitReturns: true,
+						noFallthroughCasesInSwitch: true,
+					},
+					include: ["components/**/*", "pages/**/*"],
+				}),
+				{
+					encoding: "utf8",
+				},
+			);
+			const pagesPath = path.join(tempDirPath, "pages");
+			await fs.mkdir(pagesPath);
+			await fs.writeFile(
+				path.join(pagesPath, "index.tsx"),
+				`
                 import { createElement } from "websnacks";
                 export const page = () => <html />;
                 `,
-                {
-                    encoding: "utf8",
-                },
-            );
-            await fs.writeFile(
-                path.join(tempDirPath, "package.json"),
-                JSON.stringify({
-                    devDependencies: {
-                        websnacks: `file:${WEBSNACKS_REPO_ROOT}`,
-                    },
-                }),
-                { encoding: "utf8" },
-            );
-            await runCommand(npmCmd, ["install", "--silent"], {
-                cwd: tempDirPath,
-            }).complete;
-            const cmd = runCommand(
-                "node",
-                [WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "build"],
-                {
-                    cwd: tempDirPath,
-                },
-            );
-            await cmd.complete;
-        });
-    });
+				{
+					encoding: "utf8",
+				},
+			);
+			await fs.writeFile(
+				path.join(tempDirPath, "package.json"),
+				JSON.stringify({
+					devDependencies: {
+						websnacks: `file:${WEBSNACKS_REPO_ROOT}`,
+					},
+				}),
+				{ encoding: "utf8" },
+			);
+			await runCommand(npmCmd, ["install", "--silent"], {
+				cwd: tempDirPath,
+			}).complete;
+			const cmd = runCommand(
+				"node",
+				[WEBSNACKS_BIN_PATH, "-r", "ts-node/register", "build"],
+				{
+					cwd: tempDirPath,
+				},
+			);
+			await cmd.complete;
+		});
+	});
 });

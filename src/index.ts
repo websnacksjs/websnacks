@@ -4,6 +4,6 @@
  */
 
 export { HTMLElement, Component, Fragment } from "./component";
-export { UserConfig as Config } from "./config";
+export { UserConfig as Config, defineConfig } from "./config";
 export { createElement } from "./create-element";
 export * from "./jsx";

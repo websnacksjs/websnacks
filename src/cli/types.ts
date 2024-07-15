@@ -7,16 +7,16 @@
  * CLI command representing an action that the CLI program supports.
  */
 export interface Command {
-    /**
-     * Execute the command with the specified arguments.
-     *
-     * @param args List of CLI arguments to pass to the command.
-     */
-    execute(args: string[]): Promise<void>;
-    /**
-     * Help text for this command.
-     */
-    helpText: string;
+	/**
+	 * Execute the command with the specified arguments.
+	 *
+	 * @param args List of CLI arguments to pass to the command.
+	 */
+	execute(args: string[]): Promise<void>;
+	/**
+	 * Help text for this command.
+	 */
+	helpText: string;
 }
 
 /**
@@ -24,11 +24,11 @@ export interface Command {
  * text to guide the user to correct their mistake.
  */
 export class UsageError extends Error {
-    public readonly helpText: string;
+	public readonly helpText: string;
 
-    public constructor(message: string, helpText: string) {
-        super(message);
+	public constructor(message: string, helpText: string) {
+		super(message);
 
-        this.helpText = helpText;
-    }
+		this.helpText = helpText;
+	}
 }
