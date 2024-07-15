@@ -5,7 +5,7 @@
 
 import { renderSite } from "../../build";
 import { loadConfig } from "../../config";
-import { Command, UsageError } from "../types";
+import { type Command, UsageError } from "../types";
 
 const helpText = `\
 Usage: websnacks build [ROOT_DIR]
@@ -18,16 +18,16 @@ Args:
 `;
 
 interface BuildArgs {
-    rootDir: string;
+	rootDir: string;
 }
 
 const parseArgs = (args: string[]): BuildArgs => {
-    if (args.length > 1) {
-        throw new UsageError("too many arguments provided", helpText);
-    }
-    return {
-        rootDir: args[0] || process.cwd(),
-    };
+	if (args.length > 1) {
+		throw new UsageError("too many arguments provided", helpText);
+	}
+	return {
+		rootDir: args[0] || process.cwd(),
+	};
 };
 
 /**
@@ -35,11 +35,11 @@ const parseArgs = (args: string[]): BuildArgs => {
  * static files.
  */
 const buildCommand: Command = {
-    execute: async (args: string[]): Promise<void> => {
-        const { rootDir } = parseArgs(args);
-        const config = await loadConfig(rootDir);
-        await renderSite(config);
-    },
-    helpText,
+	execute: async (args: string[]): Promise<void> => {
+		const { rootDir } = parseArgs(args);
+		const config = await loadConfig(rootDir);
+		await renderSite(config);
+	},
+	helpText,
 };
 export = buildCommand;

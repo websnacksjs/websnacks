@@ -6,7 +6,16 @@ on:
         branches: [mainline]
 
 jobs:
+    check:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+            - run: npm ci
+            - run: npm run check
+
     build:
+        needs: check
         strategy:
             matrix:
                 os: [windows-latest, ubuntu-latest, macos-latest]

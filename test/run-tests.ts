@@ -3,9 +3,9 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import { fork } from "child_process";
-import * as fs from "fs";
-import * as path from "path";
+import { fork } from "node:child_process";
+import * as fs from "node:fs";
+import * as path from "node:path";
 
 import { shuffle } from "./lib/utils";
 
@@ -14,10 +14,10 @@ const files = fs.readdirSync(TEST_SUITES_DIR);
 // Shuffle test suites to detect ordering dependencies between them.
 shuffle(files);
 for (const file of files) {
-    const fullPath = path.join(TEST_SUITES_DIR, file);
-    fork(path.relative(process.cwd(), fullPath)).on("exit", (code) => {
-        if (code !== 0) {
-            process.exitCode = 1;
-        }
-    });
+	const fullPath = path.join(TEST_SUITES_DIR, file);
+	fork(path.relative(process.cwd(), fullPath)).on("exit", (code) => {
+		if (code !== 0) {
+			process.exitCode = 1;
+		}
+	});
 }

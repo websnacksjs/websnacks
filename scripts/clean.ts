@@ -3,28 +3,28 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from "node:fs";
+import * as path from "node:path";
 
 const ROOT_DIR = path.resolve(__dirname, "..");
 const DIST_DIR = path.join(ROOT_DIR, "dist");
 const TEST_DIR = path.join(ROOT_DIR, ".temp");
 
 const rmdirRecursive = (dirPath: string): void => {
-    if (!fs.existsSync(dirPath)) {
-        return;
-    }
-    const entryNames = fs.readdirSync(dirPath);
-    for (const entryName of entryNames) {
-        const entryPath = path.join(dirPath, entryName);
-        const dirent = fs.lstatSync(entryPath);
-        if (dirent.isDirectory()) {
-            rmdirRecursive(entryPath);
-        } else {
-            fs.unlinkSync(entryPath);
-        }
-    }
-    fs.rmdirSync(dirPath);
+	if (!fs.existsSync(dirPath)) {
+		return;
+	}
+	const entryNames = fs.readdirSync(dirPath);
+	for (const entryName of entryNames) {
+		const entryPath = path.join(dirPath, entryName);
+		const dirent = fs.lstatSync(entryPath);
+		if (dirent.isDirectory()) {
+			rmdirRecursive(entryPath);
+		} else {
+			fs.unlinkSync(entryPath);
+		}
+	}
+	fs.rmdirSync(dirPath);
 };
 
 rmdirRecursive(DIST_DIR);

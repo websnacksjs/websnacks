@@ -9,43 +9,43 @@
  * @param arr Array to shuffle.
  */
 export const shuffle = <T>(arr: T[]): void => {
-    let j: number;
-    let x: T;
-    for (let i = arr.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = arr[i];
-        arr[i] = arr[j];
-        arr[j] = x;
-    }
+	let j: number;
+	let x: T;
+	for (let i = arr.length - 1; i > 0; i--) {
+		j = Math.floor(Math.random() * (i + 1));
+		x = arr[i];
+		arr[i] = arr[j];
+		arr[j] = x;
+	}
 };
 
 const areArraysEqual = <T>(a: T[], b: T[]): boolean => {
-    if (a.length != b.length) {
-        return false;
-    }
-    for (let i = 0; i < a.length; i++) {
-        if (!areEqual(a[i], b[i])) {
-            return false;
-        }
-    }
-    return true;
+	if (a.length !== b.length) {
+		return false;
+	}
+	for (let i = 0; i < a.length; i++) {
+		if (!areEqual(a[i], b[i])) {
+			return false;
+		}
+	}
+	return true;
 };
 
 const areObjectsEqual = <T extends Record<string, unknown>>(
-    a: T,
-    b: T,
+	a: T,
+	b: T,
 ): boolean => {
-    const aKeys = Object.keys(a) as Array<keyof T>;
-    const bKeys = Object.keys(b) as Array<keyof T>;
-    if (aKeys.length !== bKeys.length) {
-        return false;
-    }
-    for (const key of aKeys) {
-        if (!areEqual(a[key], b[key])) {
-            return false;
-        }
-    }
-    return true;
+	const aKeys = Object.keys(a) as Array<keyof T>;
+	const bKeys = Object.keys(b) as Array<keyof T>;
+	if (aKeys.length !== bKeys.length) {
+		return false;
+	}
+	for (const key of aKeys) {
+		if (!areEqual(a[key], b[key])) {
+			return false;
+		}
+	}
+	return true;
 };
 
 /**
@@ -58,19 +58,19 @@ const areObjectsEqual = <T extends Record<string, unknown>>(
  * @return Whether the two values are structurally equal.
  */
 export const areEqual = <T>(a: T, b: T): boolean => {
-    if (Array.isArray(a) && Array.isArray(b)) {
-        return areArraysEqual(a, b);
-    }
-    if (a instanceof RegExp && b instanceof RegExp) {
-        return a.source === b.source;
-    }
-    if (typeof a === "object" && typeof b === "object") {
-        return areObjectsEqual(
-            a as Record<string, unknown>,
-            b as Record<string, unknown>,
-        );
-    }
-    return a === b;
+	if (Array.isArray(a) && Array.isArray(b)) {
+		return areArraysEqual(a, b);
+	}
+	if (a instanceof RegExp && b instanceof RegExp) {
+		return a.source === b.source;
+	}
+	if (typeof a === "object" && typeof b === "object") {
+		return areObjectsEqual(
+			a as Record<string, unknown>,
+			b as Record<string, unknown>,
+		);
+	}
+	return a === b;
 };
 
 /**
@@ -84,10 +84,10 @@ export const areEqual = <T>(a: T, b: T): boolean => {
  * @param pattern String or RegExp pattern to match value against.
  */
 export const matches = (value: string, pattern: string | RegExp): boolean => {
-    if (typeof pattern === "string") {
-        return value === pattern;
-    }
-    return pattern.test(value);
+	if (typeof pattern === "string") {
+		return value === pattern;
+	}
+	return pattern.test(value);
 };
 
 /**
@@ -102,11 +102,11 @@ export const matches = (value: string, pattern: string | RegExp): boolean => {
  * @return Rendered value to display.
  */
 export const displayValue = (value: unknown): string => {
-    if (value === undefined) {
-        return "undefined";
-    }
-    if (value instanceof RegExp) {
-        return value.toString();
-    }
-    return JSON.stringify(value);
+	if (value === undefined) {
+		return "undefined";
+	}
+	if (value instanceof RegExp) {
+		return value.toString();
+	}
+	return JSON.stringify(value);
 };

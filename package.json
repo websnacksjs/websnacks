@@ -1,54 +1,49 @@
 {
-    "name": "@websnacksjs/websnacks",
-    "description": "Minimal dependency server-side JSX for static sites",
-    "version": "0.2.0",
-    "author": {
-        "name": "M. George Hansen",
-        "email": "mgeorge@technopolitica.com"
-    },
-    "license": "MPL-2.0",
-    "repository": "github:websnacksjs/websnacks",
-    "engines": {
-        "node": ">=18"
-    },
-    "main": "dist/index.js",
-    "types": "types.d.ts",
-    "bin": "bin/websnacks.js",
-    "files": [
-        "/bin/websnacks.js",
-        "/dist/**/*.js",
-        "/dist/**/*.d.ts",
-        "/dist/**/*.map",
-        "/src/**/*.ts",
-        "/index.d.ts"
-    ],
-    "scripts": {
-        "build": "tsc",
-        "clean": "ts-node scripts/clean.ts",
-        "prepublishOnly": "npm run reset && npm test",
-        "pretest": "npm run build",
-        "preversion": "npm run reset && npm test",
-        "release": "npm version",
-        "reset": "npm run clean && npm ci",
-        "test": "npm run test:unit && npm run test:e2e",
-        "test:unit": "cd test && ts-node --script-mode ./run-tests.ts",
-        "test:e2e": "cd test && ts-node --script-mode ./run-e2e.ts"
-    },
-    "devDependencies": {
-        "@types/node": "~18",
-        "@types/ws": "^7.4.0",
-        "@typescript-eslint/eslint-plugin": "^4.15.2",
-        "@typescript-eslint/parser": "^4.15.2",
-        "eslint": "^7.21.0",
-        "eslint-config-prettier": "^8.1.0",
-        "eslint-plugin-prettier": "^3.3.1",
-        "eslint-plugin-react": "^7.22.0",
-        "prettier": "=2.2.1",
-        "ts-node": "^10.9.2",
-        "typescript": "~4.9.5"
-    },
-    "optionalDependencies": {
-        "node-watch": "^0.7.1",
-        "ws": "^7.4.3"
-    }
+	"name": "@websnacksjs/websnacks",
+	"description": "Minimal dependency server-side JSX for static sites",
+	"version": "0.2.0",
+	"author": {
+		"name": "M. George Hansen",
+		"email": "mgeorge@technopolitica.com"
+	},
+	"license": "MPL-2.0",
+	"repository": "github:websnacksjs/websnacks",
+	"engines": {
+		"node": ">=18"
+	},
+	"main": "dist/index.js",
+	"types": "types.d.ts",
+	"bin": "bin/websnacks.js",
+	"files": [
+		"/bin/websnacks.js",
+		"/dist/**/*.js",
+		"/dist/**/*.d.ts",
+		"/dist/**/*.map",
+		"/src/**/*.ts",
+		"/index.d.ts"
+	],
+	"scripts": {
+		"build": "tsc",
+		"check": "biome check .",
+		"clean": "ts-node scripts/clean.ts",
+		"prepublishOnly": "npm run reset && npm test",
+		"pretest": "npm run build",
+		"preversion": "npm run reset && npm test",
+		"release": "npm version",
+		"reset": "npm run clean && npm ci",
+		"test": "npm run test:unit && npm run test:e2e",
+		"test:unit": "cd test && ts-node --script-mode ./run-tests.ts",
+		"test:e2e": "cd test && ts-node --script-mode ./run-e2e.ts"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.8.3",
+		"@types/node": "~18",
+		"@types/ws": "^7.4.0",
+		"ts-node": "^10.9.2",
+		"typescript": "~4.9.5"
+	},
+	"optionalDependencies": {
+		"node-watch": "^0.7.1",
+		"ws": "^7.4.3"
+	}
 }
