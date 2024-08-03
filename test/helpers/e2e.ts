@@ -119,6 +119,8 @@ export const runCommand = (
 	const process = spawn(command, args, {
 		...optionsWithDefaults,
 		stdio: "pipe",
+		// NOTE: Needed to resolve https://github.com/nodejs/node/issues/52554
+		shell: true,
 	});
 	const complete = new Promise<string>((resolve, reject) => {
 		let threwError = false;
