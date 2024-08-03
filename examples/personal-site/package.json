@@ -7,8 +7,8 @@
 	},
 	"dependencies": {
 		"csstips": "^1.2.0",
-		"ts-node": "^8.10.1",
-		"typestyle": "^2.1.0",
+		"ts-node": "^10.9.2",
+		"typestyle": "^2.4.0",
 		"websnacks": "../../"
 	}
 }
